@@ -18,8 +18,8 @@ export default {
           DEFAULT: "1rem",
           sm: "2rem",
           md: "4rem",
-          xl: "5rem",
-          "2xl": "6rem",  
+          xl: "6rem",
+          "2xl": "9rem",  
         }
       }
     },

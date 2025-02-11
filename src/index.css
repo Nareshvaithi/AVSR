@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.headingText{
+    @apply text-3xl font-mainFont1 font-[600] text-themeRed
+}
+
+.latest-bullets{
+    @apply w-2 h-2 bg-gray-400 rounded-full cursor-pointer transition-colors duration-500
+}
+.latest-active-bullets{
+    @apply bg-themeRed w-3 h-3
+}

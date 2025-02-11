@@ -20,10 +20,11 @@ const Navbar = () => {
     }, []);
 
     return (
-        <nav className={`w-full py-3 flex items-center justify-around transition-all duration-300 ${
-            isSticky ? "fixed top-0 left-0 bg-white shadow-md" : "relative"
-        }`}>
-            <ul className="w-fit h-full flex items-center gap-5 font-mainFont1 text-xl">
+        <nav 
+            className={`w-full py-3 flex flex-col lg:flex-row items-center justify-around transition-all duration-300 
+                ${isSticky ? "fixed top-0 left-0 w-full bg-white shadow-md z-50" : "relative"}`}
+        >
+            <ul className="w-fit h-full flex items-center gap-5 font-mainFont1 text-sm lg:text-xl">
                 {navigations.map(({ id, title }) => (
                     <li key={id}>
                         <NavLink>{title}</NavLink>

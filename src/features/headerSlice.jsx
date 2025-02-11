@@ -6,18 +6,22 @@ const initialState = {
     {
         id:1,
         title:'Gold',
+        link:"/products"
     },
     {
         id:2,
-        title:'Diamond'
+        title:'Diamond',
+        link:"/products"
     },
     {
         id:3,
-        title:'Silver'
+        title:'Silver',
+        link:"/products"
     },
     {
         id:4,
-        title:'Gifts & Gold Coins'
+        title:'Gifts & Gold Coins',
+        link:"/products"
     }
 ]
 }

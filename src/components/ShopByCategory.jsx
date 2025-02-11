@@ -13,19 +13,19 @@ const ShopByCategory = ()=>{
                 })
             }
             </div>
-            <div className="w-full h-full container absolute top-1/2">
-                <div className="bg-white px-10 py-5 rounded-xl font-mainFont1 shadow-sm shadow-black/40">
+            <div className="lg:px-[7.5rem] absolute top-14 sm:top-16 lg:top-36">
+                <div className=" bg-white px-2 lg:px-10 py-2 lg:py-5 rounded-none lg:rounded-xl font-mainFont1 shadow-sm shadow-black/40 ">
                     <div className="pb-2">
-                        <h2 className="text-xl text-themeRed font-semibold">Shop by Category</h2>
+                        <h2 className="text-sm md:text-lg lg:text-xl text-themeRed font-semibold">Shop by Category</h2>
                     </div>
-                    <div className="w-full h-fit flex justify-between gap-5">
+                    <div className="w-full h-fit grid grid-cols-7 gap-1 lg:gap-5">
                     {
                         categorys.map(({id,category,img})=>{
-                            return <div className="w-full h-full">
-                                    <div key={id} className="cursor-pointer w-full h-full rounded-xl shadow-sm shadow-black/30 border border-black/10">
-                                        <img src={img} alt={category} className="w-full h-full object-cover rounded-xl"/>
+                            return <div key={id} className="w-full h-full">
+                                    <div className="cursor-pointer w-full h-fit rounded-xl shadow-sm shadow-black/30 border border-black/10">
+                                        <img src={img} alt={category} className="w-full h-full object-cover rounded-xl hover:scale-105 transition-all duration-500"/>
                                     </div>
-                                    <div className="text-center pt-2 text-[16px] text-gray-800 font-semibold font-sans">
+                                    <div className="text-center pt-2 text-[8px] lg:text-[16px] text-gray-800 font-semibold font-sans">
                                         <h2>{category}</h2>
                                     </div>
                                 </div>
@@ -38,4 +38,4 @@ const ShopByCategory = ()=>{
     )
 }
 
-export default ShopByCategory
+export default ShopByCategory;
