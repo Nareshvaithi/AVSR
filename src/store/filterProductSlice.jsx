@@ -1,12 +1,31 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+import shortNecklace01 from "../assets/Images/home/latest01.jpg"
+import shortNecklace02 from "../assets/Images/home/latest02.jpg"
+import shortNecklace03 from "../assets/Images/home/latest03.jpg"
+import shortNecklace04 from "../assets/Images/home/latest04.jpg"
 const initialState = {
     products: [
         {
             id: 1,
             category: "Gold Jewellery",
             items: [
-                { idx: 1, item: "Necklace", subitems: [{ id: 1, item: "Short Necklaces" }, { id: 2, item: "Long Necklaces" }] },
+                { idx: 1, item: "Necklace", subitems: [
+                    { id: 1, item: "Short Necklaces", varity:[
+                        {id:1,name:"short_necklace_01",images:[
+                            {id:1,img:shortNecklace01},
+                            {id:2,img:shortNecklace02},
+                            {id:3,img:shortNecklace03},
+                            {id:4,img:shortNecklace04},
+                        ],price:"XXXX"},
+                        {id:2,name:"short_necklace_02",images:[
+                            {id:1,img:shortNecklace01},
+                            {id:2,img:shortNecklace02},
+                            {id:3,img:shortNecklace03},
+                            {id:4,img:shortNecklace04},
+                        ],price:"XXXX"},
+                    ] },
+                    { id: 2, item: "Long Necklaces" }
+                ] },
                 { idx: 2, item: "Earrings" },
                 { idx: 3, item: "Rings" },
                 { idx: 4, item: "Nose pins" },

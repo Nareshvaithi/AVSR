@@ -13,3 +13,12 @@
 .latest-active-bullets{
     @apply bg-themeRed w-3 h-3
 }
+
+
+.front-bullets{
+    @apply w-2 h-2 bg-gray-400 rounded-full cursor-pointer transition-colors duration-500
+}
+.front-active-bullets{
+    @apply bg-themeRed w-3 h-3
+}
+

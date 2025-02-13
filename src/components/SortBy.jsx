@@ -5,7 +5,7 @@ import { selectSortOptions } from "../store/sortBySlice"
 const SortBy = ()=>{
     const sortByOptions = useSelector(selectSortOptions);
     const selectSortType = sortByOptions.map(({id,sortby})=>{
-        return <option value={id}>{sortby}</option>
+        return <option key={id} value={id}>{sortby}</option>
     })
 
     return(

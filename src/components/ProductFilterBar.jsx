@@ -6,13 +6,22 @@ import {
     addBreadcrumb
 } from "../store/filterProductSlice";
 import { IoIosArrowDown } from "react-icons/io";
+import { useState } from "react";
 
 
 const ProductFilterBar = () => {
     const dispatch = useDispatch();
     const activeItem = useSelector(selectActiveItem);
     const productsList = useSelector(selectFilterProduct);
-
+    const [isCheck,setIsCheck] = useState({}); 
+    const isChecked = (e,item)=>{
+        const { checked, name } = e.target;
+        setIsCheck((prev) => ({
+            ...prev,
+            [name]: checked
+        }));
+        console.log(`${item} is ${checked ? "checked" : "unchecked"}`);
+    }
     return (
         <div className="w-fit h-auto sticky top-16 text-nowrap">
             <div className="bg-green-800 text-white px-5 py-3 font-mainFont1 text-[22px] font-[500]">
@@ -46,7 +55,13 @@ const ProductFilterBar = () => {
                             {items.map(({ idx, item, subitems }) => (
                                 <div key={idx} className="pl-6 py-2">
                                     <div className="flex items-center gap-2">
-                                        <input type="checkbox" name={item} id={`item-${idx}`} className="size-3" />
+                                        <input 
+                                        onChange={(e)=>isChecked(e,item)} 
+                                        checked={isCheck[item] || false} 
+                                        type="checkbox" 
+                                        name={item} 
+                                        id={`item-${idx}`} 
+                                        className="size-3" />
                                         <label
                                             htmlFor={`item-${idx}`}
                                             className="font-[500] text-gray-800 font-mainFont1 text-[18px]"
