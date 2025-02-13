@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { selectFrontBanner } from "../features/frontBannerSlice";
+import { selectFrontBanner } from "../store/frontBannerSlice";
 
 const FrontBanner = () => {
     const BannerImg = useSelector(selectFrontBanner);

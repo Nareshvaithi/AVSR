@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { latestCollections, latestCollectionTitle } from "../features/latestCollectionSlice";
+import { latestCollections, latestCollectionTitle } from "../store/latestCollectionSlice";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import { BsArrowRight, BsArrowLeft } from "react-icons/bs";

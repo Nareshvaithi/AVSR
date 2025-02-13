@@ -10,12 +10,12 @@ const initialState = {
     },
     {
         id:2,
-        title:'Diamond',
+        title:'Silver',
         link:"/products"
     },
     {
         id:3,
-        title:'Silver',
+        title:'Diamond',
         link:"/products"
     },
     {

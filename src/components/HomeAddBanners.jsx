@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux"
-import { selectAddsBanners } from "../features/bannerSlice"
+import { selectAddsBanners } from "../store/bannerSlice"
 import Banners from "./Banner";
 
 const HomeAddBanners = ()=>{

@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { getGoldRate, getSliverRate } from "../features/todayRateSlice";
+import { getGoldRate, getSliverRate } from "../store/todayRateSlice";
 
 const TodayRate = ()=>{
     const goldRate = useSelector(getGoldRate);

@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { selectHeaderLogo } from "../features/headerSlice";
+import { selectHeaderLogo } from "../store/headerSlice";
 import Navbar from "./Navbar";
 
 const Header = () => {

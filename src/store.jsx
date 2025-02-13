@@ -1,12 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-import headerReducer from "./features/headerSlice";
-import todayRateReducer from "./features/todayRateSlice";
-import frontBannerReducer from "./features/frontBannerSlice";
-import shopByCategoryReducer from "./features/shopByCategorySlice";
-import latestCollectionsReducer from "./features/latestCollectionSlice";
-import bannersReducer from "./features/bannerSlice";
-import footerReducer from "./features/footerSlice";
-
+import headerReducer from "./store/headerSlice";
+import todayRateReducer from "./store/todayRateSlice";
+import frontBannerReducer from "./store/frontBannerSlice";
+import shopByCategoryReducer from "./store/shopByCategorySlice";
+import latestCollectionsReducer from "./store/latestCollectionSlice";
+import bannersReducer from "./store/bannerSlice";
+import footerReducer from "./store/footerSlice";
+import filterProductBarReducer from "./store/filterProductSlice";
+import sortByReducer from "./store/sortBySlice";
 export const store = configureStore({
     reducer:{
         header:headerReducer,
@@ -16,6 +17,8 @@ export const store = configureStore({
         shopByCategory:shopByCategoryReducer,
         latestCollections:latestCollectionsReducer,
         banners:bannersReducer,
+        filterProductBar:filterProductBarReducer,
+        sortBy:sortByReducer,
     }
 })
 

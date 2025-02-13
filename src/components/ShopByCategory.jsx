@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux"
-import { selectAllCategory, selectStoreImg } from "../features/shopByCategorySlice"
+import { selectAllCategory, selectStoreImg } from "../store/shopByCategorySlice"
 
 const ShopByCategory = ()=>{
     const storeImgs = useSelector(selectStoreImg);

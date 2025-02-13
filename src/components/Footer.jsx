@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { selectContactNo, selectfooterlinks1, selectfooterlinks2, selectfooterlinks3, selectFooterStoreImg, selectFooterSubTitle, selectFooterTitle, selectPaymentCards, selectSocialMedia, selectStoreSpecials } from "../features/footerSlice";
+import { selectContactNo, selectfooterlinks1, selectfooterlinks2, selectfooterlinks3, selectFooterStoreImg, selectFooterSubTitle, selectFooterTitle, selectPaymentCards, selectSocialMedia, selectStoreSpecials } from "../store/footerSlice";
 import { NavLink } from "react-router-dom";
 import SubscribeInput from "./SubscribeInput";
 
@@ -73,7 +73,7 @@ const Footer = ()=>{
                             <SubscribeInput/>
                         </div>
                     </div>
-                    <div className="w-full flex justify-between items-center">
+                    <div className="w-full flex flex-wrap gap-3 md:gap-0 justify-center md:justify-between items-center pt-5">
                         <div className="w-fit flex items-center gap-3">
                             {
                                 paymentCards.map(({id,name,img})=>{
@@ -83,7 +83,7 @@ const Footer = ()=>{
                                 })
                             }
                         </div>
-                        <div className="w-fit text-sm font-semibold font-sans">
+                        <div className="w-fit text-sm font-semibold font-sans text-center">
                             <p>&copy; {new Date().getFullYear()} Saravana Jewellery Private Limited. All rights reserved.</p>
                         </div>
                         <div className="w-fit flex gap-3 items-center">
