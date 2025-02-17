@@ -8,6 +8,9 @@ import bannersReducer from "./store/bannerSlice";
 import footerReducer from "./store/footerSlice";
 import productsReducer from "./store/ProductSlice";
 import sortByReducer from "./store/sortBySlice";
+import sideBarReducer from "./store/AdminStore/AdminStore"
+import activeSideBarReducer from "./store/AdminStore/ActiveSideBarData"
+
 export const store = configureStore({
     reducer:{
         header:headerReducer,
@@ -19,6 +22,7 @@ export const store = configureStore({
         banners:bannersReducer,
         products:productsReducer,
         sortBy:sortByReducer,
+        sideBar:sideBarReducer,
+        activeSideBar:activeSideBarReducer
     }
 })
-
