@@ -27,6 +27,8 @@ export const fetchproductsById = createAsyncThunk("collections/fetchproductsById
     return response.data;
 })
 
+// Fetch  By 
+
 const productSlice = createSlice({
     name: "products",
     initialState,

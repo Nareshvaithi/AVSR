@@ -2,21 +2,20 @@ import { useDispatch, useSelector } from "react-redux";
 import {
     selectActiveItem,
     selectAllProducts,
-    selectSelectedProducts,
     setActiveItem,
     addBreadcrumb,
     fetchproductsById
 } from "../store/ProductSlice";
+
 import { IoIosArrowDown } from "react-icons/io";
 import { useEffect, useState } from "react";
 
 const ProductFilterBar = () => {
     const dispatch = useDispatch();
     const activeItem = useSelector(selectActiveItem);
-    const selectedProducts = useSelector(selectSelectedProducts);
     const productsList = useSelector(selectAllProducts);
     const [productId, setProductId] = useState(null);
-
+    
     useEffect(() => {
         if (productsList.length > 0 && productId === null) {
             const firstProductId = productsList[0]._id;
@@ -25,8 +24,7 @@ const ProductFilterBar = () => {
         }
     }, [productsList, dispatch]);
 
-    if (!productsList || productsList.length === 0) return null; // Avoid error
-    console.log(selectedProducts);
+    if (!productsList || productsList.length === 0) return null; 
     return (
         <div className="w-fit h-auto sticky top-16 text-nowrap hidden md:block">
             <div className="bg-green-800 text-white px-5 py-3 font-mainFont1 text-[22px] font-[500]">
@@ -58,16 +56,10 @@ const ProductFilterBar = () => {
                                 activeItem === _id ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
                             }`}
                         >
-                            {collections.map(({ _id: collectionId, varity_name, division }) => (
+                            {collections.map(({ _id:collectionId, varity_name, division }) => (
                                 <div key={collectionId} className="pl-6 py-2">
                                     <div className="flex items-center gap-2">
-                                        <input
-                                            checked={selectedProducts.includes(collectionId)}
-                                            type="checkbox"
-                                            name={varity_name}
-                                            id={`item-${collectionId}`}
-                                            className="size-3"
-                                        />
+                                        <input type="radio" name={category_name} id={collectionId} />
                                         <label
                                             htmlFor={`item-${collectionId}`}
                                             className="font-[500] text-gray-800 font-mainFont1 text-[18px]"
@@ -81,12 +73,7 @@ const ProductFilterBar = () => {
                                         <ul className="pl-8 text-gray-700 text-sm">
                                             {division.map(({ _id: divisionId, division_name }) => (
                                                 <li key={divisionId} className="flex items-center gap-2 py-2">
-                                                    <input
-                                                        type="checkbox"
-                                                        name={division_name}
-                                                        id={`subitem-${divisionId}`}
-                                                        className="size-3"
-                                                    />
+                                                   <input type="radio" name={category_name} id={collectionId} />
                                                     <label
                                                         htmlFor={`subitem-${divisionId}`}
                                                         className="font-[500] text-gray-800 font-mainFont1 text-[18px]"
