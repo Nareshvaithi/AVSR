@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectAllNavigations } from "../store/headerSlice";
 import { NavLink } from "react-router-dom";
 import TodayRate from "./TodayRate";
-import { addBreadcrumb, setActiveItem } from "../store/filterProductSlice";
+import { addBreadcrumb, setActiveItem } from "../store/ProductSlice";
 const Navbar = () => {
     const navigations = useSelector(selectAllNavigations);
     const [isSticky, setIsSticky] = useState(false);

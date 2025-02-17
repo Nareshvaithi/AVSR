@@ -10,8 +10,8 @@ const SortBy = ()=>{
 
     return(
         <div className="flex border-2 border-gray-300 w-fit justify-between px-1 py-1">
-            <p className="font-mainFont1 text-lg font-[550] text-gray-700">Sort By : </p>
-            <select name="sort" id="sort" className="outline-none font-mainFont1 text-lg font-[550] text-gray-700">
+            <p className="font-mainFont1 text-sm lg:text-lg font-[550] text-gray-700 text-nowrap">Sort By : </p>
+            <select name="sort" id="sort" className="outline-none font-mainFont1 text-sm lg:text-lg font-[550] text-gray-700">
                 <option value="">None</option>
                 {selectSortType}    
             </select>

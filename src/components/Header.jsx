@@ -2,9 +2,10 @@ import { useSelector } from "react-redux";
 import { selectHeaderLogo } from "../store/headerSlice";
 import Navbar from "./Navbar";
 
+
 const Header = () => {
     const logo = useSelector(selectHeaderLogo);
-    
+  
     return (
         <header className="w-full h-full">
             <div className="relative w-full h-full">
@@ -24,7 +25,6 @@ const Header = () => {
                     </div>
                 </div>
             </div>
-            
             {/* Navbar */}
             <Navbar />
         </header>

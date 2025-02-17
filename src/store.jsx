@@ -6,7 +6,7 @@ import shopByCategoryReducer from "./store/shopByCategorySlice";
 import latestCollectionsReducer from "./store/latestCollectionSlice";
 import bannersReducer from "./store/bannerSlice";
 import footerReducer from "./store/footerSlice";
-import filterProductBarReducer from "./store/filterProductSlice";
+import productsReducer from "./store/ProductSlice";
 import sortByReducer from "./store/sortBySlice";
 export const store = configureStore({
     reducer:{
@@ -17,7 +17,7 @@ export const store = configureStore({
         shopByCategory:shopByCategoryReducer,
         latestCollections:latestCollectionsReducer,
         banners:bannersReducer,
-        filterProductBar:filterProductBarReducer,
+        products:productsReducer,
         sortBy:sortByReducer,
     }
 })

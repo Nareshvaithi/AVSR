@@ -46,7 +46,7 @@ const Footer = ()=>{
                 </div>
                 <div className="px-2 md:px-5 py-2 md:py-5 shadow-sm shadow-black/30 mb-10">
                     <div className="flex flex-col md:flex-row flex-wrap justify-between items-start md:items-center">
-                        <div className="w-full md:w-1/2 flex flex-wrap justify-between gap-5">
+                        <div className="w-full lg:w-1/2 flex flex-wrap justify-between gap-5">
                             <div className="">
                                 {
                                     footerlinks1.map(({id,title,link})=>{

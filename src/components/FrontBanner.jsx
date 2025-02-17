@@ -5,7 +5,7 @@ import {Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 const FrontBanner = () => {
-    const FrontBanners = useSelector(selectFrontBanner);
+    const frontBanners = useSelector(selectFrontBanner);
   return (
     <section className="w-full h-full">
         <Swiper
@@ -32,12 +32,10 @@ const FrontBanner = () => {
 
         >
           {
-            FrontBanners.map(({id,name,img})=>{
-              return <div className="w-full h-full">
-                    <SwiperSlide key={id} className="w-full h-full">
+            frontBanners.map(({id,name,img})=>{
+              return <SwiperSlide key={id} className="w-full h-full">
                         <img src={img} alt={name} title={name} className="w-full h-full object-contain"/>
                     </SwiperSlide>
-              </div> 
             })
           }
         </Swiper>

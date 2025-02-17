@@ -4,6 +4,8 @@ import App from './App.jsx'
 import { Provider } from 'react-redux'
 import { store } from './store.jsx'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { fetchProducts } from './store/ProductSlice.jsx'
+store.dispatch(fetchProducts());
 createRoot(document.getElementById('root')).render(
     <Provider store={store}>
       <BrowserRouter>
