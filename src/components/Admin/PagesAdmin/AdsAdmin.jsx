@@ -1,12 +1,12 @@
 
-import { useDispatch, useSelector } from 'react-redux'
-import {addBanner} from "../../../store/frontBannerSlice"
+import { useDispatch, useSelector,shallowEqual } from 'react-redux'
 import { FaTrash } from "react-icons/fa";
 import { FaRegCircleXmark } from "react-icons/fa6";
 import React, { useContext, useState } from 'react'
 import { ContextProvide } from '../../../ContextApi';
-import FrontBannerForm from '../Forms/FrontBannerForm';
-import {deleteBanner} from "../../../store/frontBannerSlice";
+
+import {deleteHomeAds} from "../../../store/bannerSlice";
+import AdsBannerForm from '../Forms/AdsBannerForm';
 
 
 
@@ -18,19 +18,19 @@ function AdsAdmin() {
     ] = useContext(ContextProvide);
 
   const dispatch=useDispatch()
-const frontBanner=useSelector((state)=>state.frontBanner)
+  const frontBanner = useSelector((state) => state.banners.addsBanners,shallowEqual);
 
 const handleDelete =  (id) => {
   console.log(id)
-  dispatch(deleteBanner(id))
+  dispatch(deleteHomeAds(id))
 };
-console.log(frontBanner.banners)
+console.log(frontBanner)
   return (
     <>
     <div>
     <div className='flex justify-start gap-5 p-4 flex-wrap'>
     {
-      frontBanner.banners.map((value)=>{
+      frontBanner.map((value)=>{
         console.log(value)
         console.log("value._id",value._id)
         return <>
@@ -86,7 +86,7 @@ console.log(frontBanner.banners)
 
     </div>
     <div className={`${display ? "block" : "hidden"}`}>
-      <FrontBannerForm />
+      <AdsBannerForm />
     </div>
     </div>
     </>

@@ -5,9 +5,9 @@ import { ContextProvide } from "../../../ContextApi";
 import { IoCloudUploadOutline } from "react-icons/io5";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
-import { addBanner, fetchFrontBanners } from "../../../store/frontBannerSlice";
+import { addHomeAds,fetchAddsBanners,deleteHomeAds} from "../../../store/bannerSlice";
 
-function FrontBannerForm() {
+function AdsBannerForm() {
   const dispatch = useDispatch();
   const validationSchema = Yup.object({
     image: Yup.mixed()
@@ -45,8 +45,8 @@ function FrontBannerForm() {
       console.log("Uploaded File:", values.image);
       const formData = new FormData();
       formData.append("image", values.image);
-      await dispatch(addBanner(formData)).unwrap();
-       dispatch(fetchFrontBanners)
+      await dispatch(addHomeAds(formData)).unwrap();
+      await dispatch(fetchAddsBanners());
           if (document.getElementById("image")) {
             document.getElementById("image").value = "";
           }
@@ -95,4 +95,5 @@ function FrontBannerForm() {
   );
 }
 
-export default FrontBannerForm;
+
+export default AdsBannerForm

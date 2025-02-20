@@ -66,7 +66,7 @@ export const frontBannerSlice = createSlice({
             })
             .addCase(addBanner.fulfilled, (state, action) => {
                 state.status = "succeeded";
-                state.banners.push(action.payload);
+                state.banners = [...state.banners, action.payload]
             })
             .addCase(addBanner.rejected, (state, action) => {
                 state.status = "failed";

@@ -4,9 +4,17 @@ import RateForm from '../Forms/RateForm';
 import { FaTrash } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteRate } from '../../../store/todayRateSlice';
+import RateEditForm from '../EditForms/RateEditForm';
 
 
 function RateAdmin() {
+  
+  const dispatch=useDispatch()
+  const fetchRate=useSelector((state)=>state.todayRate.todayAllRates)
+  console.log("fetchRate",fetchRate)
+
     const [notify, setNotify] = useState(false);
     const [match, setMatch] = useState("");
   
@@ -16,17 +24,19 @@ function RateAdmin() {
 
     const handleDelete = async (id) => {
       try {
-        await axios.delete(`http://localhost:3000/rate/${id}`);
+        await dispatch(deleteRate(id)).unwrap()
         alert("deleted");
       } catch (error) {
-        console.log(error.message);
+        console.error("Failed to delete:", error);
+    alert(`Failed to delete: ${error}`);
       }
     };
   return (
     <>
     <div className='flex gap-10 items-center p-4'>
       {
-        rateDetails.map((value)=>{
+        fetchRate.map((value)=>{
+          
           return <>
           <div className='border p-4 bg-[#7a6fbe] text-white'>
             <p className='text-xl'>* category_name : {value.category_name}</p>
@@ -34,7 +44,14 @@ function RateAdmin() {
             <p className='text-xl'>* Grams : {value.gram}gm</p>
             <div className='text-[#c39e41] text-2xl flex items-center gap-4 py-4 '>
            
-            <MdEdit  className=' '/>
+            <MdEdit  className=' ' onClick={()=>{
+              setEditFormData({
+                category_name:value.category_name,
+                rate:value.rate,
+                gram:value.gram,
+                _id:value._id,
+              })
+              setDisplayEdit(true)}}/>
             <FaTrash className=' ' onClick={()=>{
               setNotify(true);
               setMatch(value._id);
@@ -82,6 +99,10 @@ function RateAdmin() {
       }
       <div className={`${display ? "block":"hidden"}`}>
         <RateForm />
+      </div>
+
+      <div className={`${displayEdit ? "block":"hidden"}`}>
+        <RateEditForm />
       </div>
     </div>
     </>

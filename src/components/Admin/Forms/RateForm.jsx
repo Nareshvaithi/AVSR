@@ -3,9 +3,12 @@ import { useFormik } from 'formik';
 import React, { useContext ,useState} from 'react'
 import { ContextProvide } from '../../../ContextApi';
 import { FaRegCircleXmark } from "react-icons/fa6";
-
+import { addRate,fetchTodayRate} from '../../../store/todayRateSlice';
+import { useDispatch } from 'react-redux';
 
 function RateForm() {
+  const dispatch=useDispatch()
+  
       const [
           display, setDisplay, details, setDetails,displayDetails, setDisplayDetails,displayEdit, setDisplayEdit,editFormData,setEditFormData,rateDetails,setRateDetails
           ] = useContext(ContextProvide);
@@ -33,16 +36,12 @@ const formik=useFormik({
             return error;
           },
           onSubmit: async (values) => {
-            console.log(values)
+            
             try {
-                  const formData = new FormData();
-                  Object.keys(values).forEach((key) => {
-                    formData.append(key, values[key]);
-                  });
-              alert("Post");
-              console.log("Submitting FormData:", Object.fromEntries(formData));
               formik.resetForm();
-              await axios.post("http://localhost:3000/rate", values);
+              
+              await dispatch(addRate(values)).unwrap();
+              await dispatch(fetchTodayRate())
             
             } catch (error) {
               alert(`Failed: ${error.message}`);
