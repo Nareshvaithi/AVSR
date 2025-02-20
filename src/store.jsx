@@ -10,9 +10,11 @@ import productsReducer from "./store/ProductSlice";
 import sortByReducer from "./store/sortBySlice";
 import sideBarReducer from "./store/AdminStore/AdminStore"
 import activeSideBarReducer from "./store/AdminStore/ActiveSideBarData"
+import authReducer from "./store/AdminStore/auth";
 
 export const store = configureStore({
     reducer:{
+        auth:authReducer,
         header:headerReducer,
         footer:footerReducer,
         todayRate:todayRateReducer,
@@ -22,7 +24,7 @@ export const store = configureStore({
         banners:bannersReducer,
         products:productsReducer,
         sortBy:sortByReducer,
-        sideBar:sideBarReducer,
+        // sideBar:sideBarReducer,
         activeSideBar:activeSideBarReducer
     }
 });

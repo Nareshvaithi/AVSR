@@ -6,6 +6,8 @@ import ProductDetails from "./pages/ProductDetails";
 import AdminPanel from "./pages/AdminPanel";
 import AdminLayout from "./pages/AdminLayout";
 import ContextApi from "./ContextApi";
+import Login from "./pages/Login";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
  
@@ -17,9 +19,12 @@ function App() {
         <Route path="products" element={<Products/>}/>
         <Route path="/products/:title" element={<ProductDetails/>}/>
       </Route>
-      <Route path="/admin" element={<AdminLayout />}>
-      <Route index element={<AdminPanel/>}/>
-      </Route>
+        <Route path="/admin" element={<ProtectedRoute>
+          <AdminLayout />
+          <Route index element={<AdminPanel/>}/>
+        </ProtectedRoute>}>
+        </Route>
+      <Route path="/login" element={<Login/>}/>
     </Routes>
     </ContextApi>
   )

@@ -1,6 +1,5 @@
 import React from 'react';
 import { createAsyncThunk, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
-import { data } from 'react-router-dom';
 import { FaRupeeSign } from "react-icons/fa";
 import { LiaImagesSolid } from "react-icons/lia";
 import { HiOutlineCollection } from "react-icons/hi";
@@ -40,5 +39,6 @@ const initialValue=[
 const sidebarDataSlice=createSlice({
       name: "SideBar",
       initialState:initialValue,
+      reducers:{}
 })
 export default sidebarDataSlice.reducer
