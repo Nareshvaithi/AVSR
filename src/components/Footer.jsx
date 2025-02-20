@@ -15,7 +15,7 @@ const Footer = ()=>{
     const paymentCards = useSelector(selectPaymentCards);
     const socialMedia = useSelector(selectSocialMedia);
     return(
-        <footer>
+        <footer className="py-5">
             <div className="container">
                 <div className="text-center">
                     <h2 className="headingText">{title}</h2>

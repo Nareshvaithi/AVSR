@@ -1,18 +1,39 @@
-import { createSlice } from "@reduxjs/toolkit";
-import frontBanner from "../assets/Images/home/front-banner.jpg";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+
+const API_URL = `https://api-avsr.konceptsdandd.com/banner`;
+
+export const fetchFrontBanners = createAsyncThunk(`banner/fetchFrontBanners`, async ()=>{
+    const response = await axios.get(API_URL);
+    return response.data;
+}) 
+
 const initialState = {
-    banner:[
-        {id:1,name:"banner_01",img:frontBanner},
-        {id:2,name:"banner_02",img:frontBanner},
-        {id:3,name:"banner_03",img:frontBanner},
-    ],
+    banners:[],
+    status:"idle",
+    error:null,
 }
 
 export const frontBannerSlice = createSlice({
     name:'frontBanner',
     initialState,
     reducers:{},
+    extraReducers:(builder)=>{
+        builder
+            .addCase(fetchFrontBanners.pending, (state,action)=>{
+                state.status = "loading";
+            })
+            .addCase(fetchFrontBanners.rejected, (state,action)=>{
+                state.status = "failed"
+                state.error = action.error.message
+            })
+            .addCase(fetchFrontBanners.fulfilled, (state,action)=>{
+                state.status = "succeeded"
+                state.banners = action.payload
+            })
+    }
 })
 
 export default frontBannerSlice.reducer;
-export const selectFrontBanner = (state) => state.frontBanner.banner;
+export const selectFrontBanner = (state) => state.frontBanner.banners;
+export const selectFrontBannerStatus = (state) => state.frontBanner.status;

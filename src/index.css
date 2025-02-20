@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+*{
+    scroll-behavior: smooth;
+}
 
 .headingText{
     @apply text-3xl font-mainFont1 font-[600] text-themeRed

@@ -6,11 +6,12 @@ import { BsArrowRight, BsArrowLeft } from "react-icons/bs";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { useNavigate } from "react-router-dom";
 
 const LatestCollections = () => {
     const title = useSelector(latestCollectionTitle);
     const latest = useSelector(latestCollections);
-
+    const navigate = useNavigate();
     return (
         <div className="w-full h-full pt-28 lg:pt-40 pb-5">
             <div className="w-full h-full relative">
@@ -43,9 +44,14 @@ const LatestCollections = () => {
                             }}
                             className="w-full h-full rounded-xl"
                         >
-                            {latest.map(({ id, name, img }) => (
-                                <SwiperSlide key={id} className="w-full h-full border border-themeRed rounded-xl">
-                                    <img src={img} alt={name} className="w-full h-auto rounded-xl" />
+                            {latest.map(({ _id, product_name, url, varity_name,purity,weight,offer,discount,mrp,category_name,product_code}) => (
+                                <SwiperSlide
+                                title={product_name} 
+                                key={_id}
+                                className="cursor-pointer w-full h-full border border-themeRed rounded-xl"
+                                onClick={()=>{navigate(`/products/${product_name}`,{state:{product_name,images:url,division_name:varity_name,purity,weight,offer,discount,mrp,_id,metal:category_name,product_code}});window.scrollTo(0,0)}}
+                                >
+                                    <img src={url && url[0]} alt={product_name} className="w-full h-auto rounded-xl" />
                                 </SwiperSlide>
                             ))}
                         </Swiper>

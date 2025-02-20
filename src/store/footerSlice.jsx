@@ -47,12 +47,12 @@ const initialState = {
         {id:3,name:"UPI",img:upiImg},
     ],
     socialMedia:[
-        {id:1,name:"Facebook",icon:faceboolIcon},
-        {id:2,name:"YouTube",icon:youtubeIcon},
-        {id:3,name:"Instagram",icon:instagramIcon},
-        {id:4,name:"WhatsApp",icon:whatsappIcon},
-        {id:5,name:"Pinterest",icon:pinterestIcon},
-        {id:6,name:"linkedIn",icon:linkedInIcon},
+        {id:1,name:"Facebook",icon:faceboolIcon,link:"https://wa.me/+91735810137"},
+        {id:2,name:"YouTube",icon:youtubeIcon,link:""},
+        {id:3,name:"Instagram",icon:instagramIcon,link:""},
+        {id:4,name:"WhatsApp",icon:whatsappIcon,link:""},
+        {id:5,name:"Pinterest",icon:pinterestIcon,link:""},
+        {id:6,name:"linkedIn",icon:linkedInIcon,link:""},
     ]
 }
 
