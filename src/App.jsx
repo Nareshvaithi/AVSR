@@ -4,9 +4,11 @@ import Home from "./pages/Home";
 import Products from "./pages/Products";
 import AdminPanel from "./pages/AdminPanel";
 import AdminLayout from "./pages/AdminLayout";
+import ContextApi from "./ContextApi";
 function App() {
  
   return (
+    <ContextApi>
     <Routes>
       <Route path="/" element={<Layout/>}>
         <Route index element={<Home/>}/>
@@ -18,6 +20,7 @@ function App() {
       </Route>
 
     </Routes>
+    </ContextApi>
   )
 }
 
