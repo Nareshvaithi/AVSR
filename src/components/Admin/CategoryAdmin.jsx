@@ -17,8 +17,8 @@ const handleClick=(data)=>{
 
   return (
     <>
-      <div className="  w-full">
-        <div className="h-screen border bg-[#7a6fbe] ">
+      <div className="sticky top-0 w-full">
+        <div className="h-screen border bg-[#380200] ">
           <div className="flex  items-center mt-4">
             <div className="w-20">
               <img
@@ -33,7 +33,7 @@ const handleClick=(data)=>{
           <div className=" mt-10 ">
             {category.map(({ data, icon }, index) => {
               return (
-                <div className={`${active == data ? "text-gray-900 bg-black/20" : "text-[#faf9ff]" } flex flex-wrap  items-center py-4 pl-4`} onClick={(e)=>handleClick(data)}>
+                <div className={`${active == data ? "text-[#c39e41] bg-themeRed/50" : "text-[#faf9ff]" } flex flex-wrap  items-center py-4 pl-4`} onClick={(e)=>handleClick(data)}>
                   <p className=" pr-2 text-lg" key={index}>
                     {icon}
                   </p>

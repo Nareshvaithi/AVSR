@@ -8,6 +8,32 @@ export const fetchFrontBanners = createAsyncThunk(`banner/fetchFrontBanners`, as
     return response.data;
 }) 
 
+export const addBanner = createAsyncThunk(
+    "frontBanner/addBanner",
+    async (bannerData, { rejectWithValue }) => {
+        try {
+            const response = await axios.post(API_URL, bannerData, {
+                headers: { "Content-Type": "multipart/form-data" }, 
+            });
+            console.log("succes")
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response?.data || "Error adding banner");
+        }
+    }
+);
+
+
+export const deleteBanner = createAsyncThunk("frontBanner/deleteBanner", async (bannerId, { rejectWithValue }) => {
+    try {
+        const response = await axios.delete(`${API_URL}/${bannerId}`);
+        console.log("Success: Banner deleted",bannerId);
+        return bannerId; 
+    } catch (error) {
+        return rejectWithValue(error.response?.data || "Error deleting banner");
+    }
+});
+
 const initialState = {
     banners:[],
     status:"idle",
@@ -20,6 +46,8 @@ export const frontBannerSlice = createSlice({
     reducers:{},
     extraReducers:(builder)=>{
         builder
+
+        //for fetching banner Images...........................
             .addCase(fetchFrontBanners.pending, (state,action)=>{
                 state.status = "loading";
             })
@@ -31,6 +59,31 @@ export const frontBannerSlice = createSlice({
                 state.status = "succeeded"
                 state.banners = action.payload
             })
+
+            //for adding banner images...................................
+            .addCase(addBanner.pending, (state) => {
+                state.status = "loading"; 
+            })
+            .addCase(addBanner.fulfilled, (state, action) => {
+                state.status = "succeeded";
+                state.banners.push(action.payload);
+            })
+            .addCase(addBanner.rejected, (state, action) => {
+                state.status = "failed";
+                state.error = action.payload;
+            })
+            //for deleting banner images........................
+            .addCase(deleteBanner.pending, (state) => {
+                state.status = "loading";
+            })
+            .addCase(deleteBanner.fulfilled, (state, action) => {
+                state.status = "succeeded";
+                state.banners = state.banners.filter((banner) => banner._id !== action.payload);
+            })
+            .addCase(deleteBanner.rejected, (state, action) => {
+                state.status = "failed";
+                state.error = action.payload;
+            });
     }
 })
 
