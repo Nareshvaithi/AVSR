@@ -8,8 +8,8 @@ const HomeAddBanners = ()=>{
         <section className="py-5">
             <div className="container grid grid-cols-2 gap-5">
                 {
-                    addsBanners.map(({id,name,img})=>{
-                        return <Banners key={id} name={name} img={img} rounded={true}/>
+                    addsBanners.map(({_id,url})=>{
+                        return <Banners key={_id} img={url} rounded={true}/>
                     })
                 }
             </div>

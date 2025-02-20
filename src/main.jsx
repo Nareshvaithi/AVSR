@@ -8,11 +8,13 @@ import { fetchProducts } from './store/ProductSlice.jsx'
 import { fetchLatestCollections } from './store/latestCollectionSlice.jsx'
 import { fetchTodayRate } from './store/todayRateSlice.jsx'
 import { fetchFrontBanners } from './store/frontBannerSlice.jsx'
+import { fetchAddsBanners } from './store/bannerSlice.jsx'
 
 store.dispatch(fetchFrontBanners());
 store.dispatch(fetchProducts());
 store.dispatch(fetchLatestCollections());
 store.dispatch(fetchTodayRate());
+store.dispatch(fetchAddsBanners());
 createRoot(document.getElementById('root')).render(
     <Provider store={store}>
       <BrowserRouter>

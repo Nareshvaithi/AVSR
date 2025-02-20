@@ -25,4 +25,4 @@ export const store = configureStore({
         // sideBar:sideBarReducer,
         // activeSideBar:activeSideBarReducer
     }
-})
+});
