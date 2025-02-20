@@ -8,11 +8,13 @@ const productAdapter = createEntityAdapter({
 });
 
 const initialState = productAdapter.getInitialState({
-    selectedProducts: [], // Store selected product data instead of just IDs
+    selectedCategory: null, // Track selected category
+    selectedVarity: null,   // Track selected varity
+    selectedDivision: null, // Track selected division
     status: "idle",
     error: null,
-    activeItem: null,
     breadcrumb: ["Home ", "/ Gold Jewellery"],
+    productIndex:0
 });
 
 // Fetch all products
@@ -21,34 +23,27 @@ export const fetchProducts = createAsyncThunk("collections/fetchProducts", async
     return response.data;
 });
 
-// Fetch Product By Id
-export const fetchproductsById = createAsyncThunk("collections/fetchproductsById", async(productId)=>{
-    const response = await axios.get(`${API_URL}/${productId}`);
-    return response.data;
-})
-
-// Fetch  By 
-
 const productSlice = createSlice({
     name: "products",
     initialState,
     reducers: {
-        setActiveItem: (state, action) => {
-            const categoryId = action.payload;
-            if (state.activeItem === categoryId) {
-                state.activeItem = null;
-            } else {
-                state.activeItem = categoryId;
-            }
+        setSelectedCategory: (state, action) => {
+            state.selectedCategory = action.payload;
+            state.selectedVarity = null; // Reset selected varity
+            state.selectedDivision = null; // Reset selected division
         },
-        addBreadcrumb: (state, action) => {
-            const activeCrumbId = action.payload;
-            const foundProduct = state.entities[activeCrumbId];
-            if (foundProduct) {
-                state.breadcrumb = ["Home ", `/ ${foundProduct.category_name}`];
-            }
+        setSelectedVarity: (state, action) => {
+            state.selectedVarity = action.payload;
+            state.selectedDivision = null; // Reset selected division
         },
-
+        setSelectedDivision: (state, action) => {
+            state.selectedDivision = action.payload;
+        },
+        resetSelection: (state) => {
+            state.selectedCategory = null;
+            state.selectedVarity = null;
+            state.selectedDivision = null;
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -62,11 +57,7 @@ const productSlice = createSlice({
             .addCase(fetchProducts.fulfilled, (state, action) => {
                 state.status = "succeeded";
                 productAdapter.setAll(state, action.payload);
-            })
-            .addCase(fetchproductsById.fulfilled, (state, action) => {
-                state.selectedProducts = [action.payload]; // Replace the array with a single product
-            })            
-            
+            });
     },
 });
 
@@ -78,8 +69,9 @@ export const {
     selectEntities: selectProductEntities,
 } = productAdapter.getSelectors((state) => state.products);
 
-export const selectActiveItem = (state) => state.products.activeItem;
+export const selectSelectedCategory = (state) => state.products.selectedCategory;
+export const selectSelectedVarity = (state) => state.products.selectedVarity;
+export const selectSelectedDivision = (state) => state.products.selectedDivision;
 export const selectBreadcrumb = (state) => state.products.breadcrumb;
-export const selectSelectedProducts = (state) => state.products.selectedProducts; // Selector for selected products
 
-export const { setActiveItem, addBreadcrumb} = productSlice.actions;
+export const { setSelectedCategory, setSelectedVarity, setSelectedDivision, resetSelection } = productSlice.actions;
