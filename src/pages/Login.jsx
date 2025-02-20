@@ -3,14 +3,15 @@ import { selectFooterStoreImg } from "../store/footerSlice";
 import { useFormik } from "formik";
 import { selectHeaderLogo } from "../store/headerSlice";
 import { loginSchema } from "../schema/loginSchema";
-import { login } from "../store/AdminStore/auth";
+import { login, selectLogin } from "../store/AdminStore/auth";
 import { useNavigate } from "react-router-dom";
 
 const Login = ()=>{
     const dispatch = useDispatch()
     const navigate = useNavigate();
     const storeImg = useSelector(selectFooterStoreImg);
-    const logo = useSelector(selectHeaderLogo)
+    const logo = useSelector(selectHeaderLogo);
+    const isLogin = useSelector(selectLogin);
     const formik = useFormik({
         initialValues:{
             username:'',
@@ -27,7 +28,6 @@ const Login = ()=>{
     
     return(
         <div className="w-full h-screen">
-            <div className="fixed w-80 h-10 bg-green-800 top-20 right-0 flex items-center px-5 py-6 text-white text-xl transition-transform translate-x-[0%] duration-500 ease-in-out">Login Successfully</div>
             <div className="w-full h-fit">
                 <img src={logo} alt="" className="w-full h-full object-contain"/>
             </div>

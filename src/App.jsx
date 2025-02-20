@@ -10,24 +10,28 @@ import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
- 
   return (
     <ContextApi>
-    <Routes>
-      <Route path="/" element={<Layout/>}>
-        <Route index element={<Home/>}/>
-        <Route path="products" element={<Products/>}/>
-        <Route path="/products/:title" element={<ProductDetails/>}/>
-      </Route>
-        <Route path="/admin" element={<ProtectedRoute>
-          <AdminLayout />
-          <Route index element={<AdminPanel/>}/>
-        </ProtectedRoute>}>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="products" element={<Products />} />
+          <Route path="products/:title" element={<ProductDetails />} />
         </Route>
-      <Route path="/login" element={<Login/>}/>
-    </Routes>
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              <AdminLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route index element={<AdminPanel />} />
+        </Route>
+        <Route path="/login" element={<Login />} />
+      </Routes>
     </ContextApi>
-  )
+  );
 }
 
-export default App
+export default App;
