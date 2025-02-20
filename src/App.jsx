@@ -2,15 +2,11 @@ import { Routes, Route } from "react-router-dom";
 import Layout from "./pages/Layout";
 import Home from "./pages/Home";
 import Products from "./pages/Products";
-<<<<<<< HEAD
+import ProductDetails from "./pages/ProductDetails";
 import AdminPanel from "./pages/AdminPanel";
 import AdminLayout from "./pages/AdminLayout";
 import ContextApi from "./ContextApi";
-=======
-import ProductDetails from "./pages/ProductDetails";
-// import AdminPanel from "./pages/AdminPanel";
-// import AdminLayout from "./pages/AdminLayout";
->>>>>>> refs/remotes/origin/main
+
 function App() {
  
   return (
@@ -21,9 +17,9 @@ function App() {
         <Route path="products" element={<Products/>}/>
         <Route path="/products/:title" element={<ProductDetails/>}/>
       </Route>
-      {/* <Route path="/admin" element={<AdminLayout />}>
+      <Route path="/admin" element={<AdminLayout />}>
       <Route index element={<AdminPanel/>}/>
-      </Route> */}
+      </Route>
     </Routes>
     </ContextApi>
   )
