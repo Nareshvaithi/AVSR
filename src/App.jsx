@@ -21,8 +21,9 @@ function App() {
       </Route>
         <Route path="/admin" element={<ProtectedRoute>
           <AdminLayout />
-          <Route index element={<AdminPanel/>}/>
+          
         </ProtectedRoute>}>
+        <Route index element={<AdminPanel/>}/>
         </Route>
       <Route path="/login" element={<Login/>}/>
     </Routes>

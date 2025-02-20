@@ -24,7 +24,7 @@ export const store = configureStore({
         banners:bannersReducer,
         products:productsReducer,
         sortBy:sortByReducer,
-        // sideBar:sideBarReducer,
+        sideBar:sideBarReducer,
         activeSideBar:activeSideBarReducer
     }
 });

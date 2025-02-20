@@ -9,7 +9,6 @@ import FrontBannerForm from '../Forms/FrontBannerForm';
 import {deleteBanner} from "../../../store/frontBannerSlice";
 
 
-
 function BannerHome() {
   const [notify, setNotify] = useState(false);
   const [match, setMatch] = useState("");
