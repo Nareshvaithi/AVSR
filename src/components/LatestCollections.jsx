@@ -49,7 +49,7 @@ const LatestCollections = () => {
                                 title={product_name} 
                                 key={_id}
                                 className="cursor-pointer w-full h-full border border-themeRed rounded-xl"
-                                onClick={()=>{navigate(`/products/${product_name}`,{state:{product_name,images:url,division_name:varity_name,purity,weight,offer,discount,mrp,_id,metal:category_name,product_code}});window.scrollTo(0,0)}}
+                                onClick={()=>{navigate(`/products/${product_name}`,{state:{product_name,images:url,division_name:varity_name,purity,weight,offer,discount,mrp,_id,metal:category_name,product_code}});window.scrollTo(0,350)}}
                                 >
                                     <img src={url && url[0]} alt={product_name} className="w-full h-auto rounded-xl" />
                                 </SwiperSlide>
