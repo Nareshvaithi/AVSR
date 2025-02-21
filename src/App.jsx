@@ -8,10 +8,14 @@ import AdminLayout from "./pages/AdminLayout";
 import ContextApi from "./ContextApi";
 import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 function App() {
   return (
     <ContextApi>
+      <ToastContainer/>
     <Routes>
       <Route path="/" element={<Layout/>}>
         <Route index element={<Home/>}/>
