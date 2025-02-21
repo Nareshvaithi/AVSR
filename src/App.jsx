@@ -12,21 +12,16 @@ import ProtectedRoute from "./components/ProtectedRoute";
 function App() {
   return (
     <ContextApi>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="products" element={<Products />} />
-          <Route path="products/:title" element={<ProductDetails />} />
-        </Route>
-        <Route
-          path="/admin"
-          element={
-            <ProtectedRoute>
-              <AdminLayout />
-            </ProtectedRoute>
-          }
-        >
-          <Route index element={<AdminPanel />} />
+    <Routes>
+      <Route path="/" element={<Layout/>}>
+        <Route index element={<Home/>}/>
+        <Route path="products" element={<Products/>}/>
+        <Route path="/products/:title" element={<ProductDetails/>}/>
+      </Route>
+        <Route path="/admin" element={<ProtectedRoute>
+          <AdminLayout />
+        </ProtectedRoute>}>
+        <Route index element={<AdminPanel/>}/>
         </Route>
         <Route path="/login" element={<Login />} />
       </Routes>
