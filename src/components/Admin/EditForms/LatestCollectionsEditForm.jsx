@@ -1,25 +1,17 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import { useFormik } from "formik";
 import axios from "axios";
 import { FaRegCircleXmark } from "react-icons/fa6";
 import { ContextProvide } from "../../../ContextApi";
 import { useDispatch } from "react-redux";
-import { addProductData } from "../../../store/ProductSlice";
+import {  editData, fetchLatestCollections } from "../../../store/latestCollectionSlice";
 
-function ProductsForm() {
-  const dispatch = useDispatch();
-  const [
-    displayForm,
-    setDisplayForm,
-    details,
-    setDetails,
-    displayEdit,
-    setDisplayEdit,
-  ] = useContext(ContextProvide);
-
+function LatestCollectionsEditForm() {
+      const dispatch=useDispatch()
+          const [display, setDisplay, details, setDetails,displayDetails, setDisplayDetails,displayEdit, setDisplayEdit,editFormData,setEditFormData,rateDetails,setRateDetails,editLatest, setEditLatest,editLatestData, setEditLatestData]=useContext(ContextProvide)
+      
   const feilds = [
     { label: "varity_name", value: "" },
-    { label: "division_name", value: "" },
     { label: "product_name", value: "" },
     { label: "product_code", value: "" },
     { label: "purity", value: "" },
@@ -36,11 +28,26 @@ function ProductsForm() {
     acc[label] = "";
     return acc;
   }, {});
+
   useEffect(() => {
     setIntialValue({ ...newValues, category_name: "", image: [] });
   }, []);
+  console.log("editLatestData",editLatestData)
   const formik = useFormik({
-    initialValues: intialValue,
+    initialValues: {
+      category_name: editLatestData.category_name || "",
+      varity_name: editLatestData.varity_name || "",
+      division_name: editLatestData.division_name || "",
+      product_name: editLatestData.product_name || "",
+      product_code: editLatestData.product_code || "",
+      purity: editLatestData.purity || "",
+      Metal: editLatestData.Metal || "",
+      weight: editLatestData.weight || "",
+      price: editLatestData.price || "",
+      offer: editLatestData.offer || "",
+      discount: editLatestData.discount || "",
+      mrp: editLatestData.mrp || ""
+    },
     enableReinitialize: true,
     validate: (values) => {
       let error = {};
@@ -64,39 +71,37 @@ function ProductsForm() {
           }
         });
 
-        if (values.image && values.image.length > 0) {
-          values.image.forEach((file, index) => {
-            formData.append(`image`, file);
-          });
-        }
-
+      //   if (values.image && values.image.length > 0) {
+      //     values.image.forEach((file, index) => {
+      //       formData.append(`image`, file);
+      //     });
+      //   }
+       
         formik.resetForm();
-        await dispatch(addProductData(formData)).unwrap();
-        await dispatch(fetchProducts());
+        setEditLatest(false)
+      await dispatch(editData({ id: editLatestData._id, formData })).unwrap();
+        dispatch(fetchLatestCollections())
+        alert("Product Posted Successfully");
       } catch (error) {
         alert(`Failed: ${error.message}`);
         console.log({ error: error.message });
       }
     },
   });
-  const handleFileChange = (event) => {
-    const files = event.target.files;
-    formik.setFieldValue("image", Array.from(files));
-  };
+//   const handleFileChange = (event) => {
+//     const files = event.target.files;
+//     formik.setFieldValue("image", Array.from(files));
+//   };
   return (
     <>
-      <div className="flex justify-center items-center">
+      <div className={`flex justify-center items-center`}>
         <div className="w-1/2 flex justify-center items-center p-4  ">
           <div className="w-7/12 border shadow-lg  rounded-md">
             <div className="flex justify-center  text-2xl text-[#c39e41] font-semibold mb-4 bg-green-800 py-2">
-              <p className="w-11/12 text-center">Products Form</p>
-              <p
-                className="text-[#c39e41] text-xl"
-                onClick={() => setDisplayForm(false)}
-              >
-                <FaRegCircleXmark />
-              </p>
-            </div>
+              <p className="w-11/12 text-center">Latest Collections Edit Form</p>
+              <p className="text-[#c39e41] text-xl" onClick={()=>{
+                  setEditLatest(false)}}><FaRegCircleXmark /></p>
+        </div>
             <form
               className="px-4 py-2 bg-[#f7f7f7] "
               onSubmit={formik.handleSubmit}
@@ -152,13 +157,13 @@ function ProductsForm() {
                 })}
               </div>
               <div>
-                <input
+                {/* <input
                   type="file"
                   name="image"
                   accept="image/*"
                   onChange={handleFileChange}
                   multiple
-                />
+                /> */}
               </div>
               <button
                 type="submit"
@@ -174,4 +179,5 @@ function ProductsForm() {
   );
 }
 
-export default ProductsForm;
+
+export default LatestCollectionsEditForm

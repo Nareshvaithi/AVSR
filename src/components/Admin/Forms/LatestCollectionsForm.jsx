@@ -1,27 +1,18 @@
-import React, {  useContext } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import { useFormik } from "formik";
-
+import axios from "axios";
 import { FaRegCircleXmark } from "react-icons/fa6";
 import { ContextProvide } from "../../../ContextApi";
 import { useDispatch } from "react-redux";
-import { editProductData, fetchProducts } from "../../../store/ProductSlice";
+import { addLatestData, fetchLatestCollections } from "../../../store/latestCollectionSlice";
 
-function ProductEditForm() {
-  const dispatch=useDispatch()
-  const [
-    display,
-    setDisplay,
-    details,
-    setDetails,
-    displayDetails,
-    setDisplayDetails,
-    displayEdit,
-    setDisplayEdit,
-    editFormData,
-    setEditFormData,
-  ] = useContext(ContextProvide);
-  console.log("editFormData",editFormData)
+function LatestCollectionsForm() {
+      const dispatch=useDispatch()
+          const [displayForm,setDisplayForm,details,setDetails,displayEdit, setDisplayEdit]=useContext(ContextProvide)
+      
   const feilds = [
+    { label: "varity_name", value: "" },
+    { label: "division_name", value: "" },
     { label: "product_name", value: "" },
     { label: "product_code", value: "" },
     { label: "purity", value: "" },
@@ -32,24 +23,25 @@ function ProductEditForm() {
     { label: "discount", value: "" },
     { label: "mrp", value: "" },
   ];
+  const [intialValue, setIntialValue] = useState({});
 
+  const newValues = feilds.reduce((acc, { label, value }) => {
+    acc[label] = "";
+    return acc;
+  }, {});
 
+  useEffect(() => {
+    setIntialValue({ ...newValues, category_name: "", image: [] });
+  }, []);
   const formik = useFormik({
-    initialValues: {
-      product_name: editFormData.product_name || "",
-      product_code: editFormData.product_code || "",
-      purity: editFormData.purity || "",
-      Metal: editFormData.Metal || "",
-      weight: editFormData.weight || "",
-      price: editFormData.price || "",
-      offer: editFormData.offer || "",
-      discount: editFormData.discount || "",
-      mrp: editFormData.mrp || "",
-    },
+    initialValues: intialValue,
     enableReinitialize: true,
     validate: (values) => {
       let error = {};
-      feilds.forEach(({ label}) => {
+      if (!values.category_name) {
+        error.category_name = "*Required*";
+      }
+      feilds.forEach(({ label, value }) => {
         if (!values[label]) {
           error[label] = "*Required*";
         }
@@ -57,8 +49,6 @@ function ProductEditForm() {
       return error;
     },
     onSubmit: async (values) => {
-      const id=editFormData._id
-      console.log("editFormData._id",editFormData._id)
       try {
         const formData = new FormData();
 
@@ -67,24 +57,28 @@ function ProductEditForm() {
             formData.append(key, values[key]);
           }
         });
-          
-        for (let pair of formData.entries()) {
-            console.log(pair[0], pair[1]);
-          }
-        
-        
-      
-        await dispatch(editProductData({ id, values })).unwrap();
-        
-        await dispatch(fetchProducts())
+
+        if (values.image && values.image.length > 0) {
+          values.image.forEach((file, index) => {
+            formData.append(`image`, file);
+          });
+        }
+        alert("Product Posted Successfully");
         formik.resetForm();
-        alert("Product Edit SuccessFully");
+        setDisplayForm(false)
+      await dispatch(addLatestData(formData)).unwrap();
+        dispatch(fetchLatestCollections)
+      
       } catch (error) {
         alert(`Failed: ${error.message}`);
         console.log({ error: error.message });
       }
     },
   });
+  const handleFileChange = (event) => {
+    const files = event.target.files;
+    formik.setFieldValue("image", Array.from(files));
+  };
   return (
     <>
       <div className="flex justify-center items-center">
@@ -92,27 +86,40 @@ function ProductEditForm() {
           <div className="w-7/12 border shadow-lg  rounded-md">
             <div className="flex justify-center  text-2xl text-[#c39e41] font-semibold mb-4 bg-green-800 py-2">
               <p className="w-11/12 text-center">Products Form</p>
-              <p
-                className="text-[#c39e41] text-xl"
-                onClick={() => setDisplayEdit(false)}
-              >
-                <FaRegCircleXmark />
-              </p>
-            </div>
+              <p className="text-[#c39e41] text-xl" onClick={()=>setDisplayForm(false)}><FaRegCircleXmark /></p>
+        </div>
             <form
               className="px-4 py-2 bg-[#f7f7f7] "
               onSubmit={formik.handleSubmit}
               method="POST"
             >
+              <div className="flex justify-between items-center ">
+                <p className="text-lg">Category Type : </p>
+                <select
+                  className="border px-3 py-1 text-lg"
+                  name="category_name"
+                  onChange={formik.handleChange}
+                  value={formik.values.category}
+                >
+                  <option value="Gold">Gold</option>
+                  <option value="Diamond">Diamond</option>
+                  <option value="Silver">Silver</option>
+                  <option value="Gold Coins">Gold Coins</option>
+                  <option value="Gifts">Gifts</option>
+                  <option value="Gifts">+ Add Category</option>
+                </select>
+                <span style={{ color: "red" }}>
+                  {formik.errors.category_name}
+                </span>
+              </div>
               <div className="">
                 {feilds.map((value, index) => {
                   return (
                     <>
                       <div
                         className="flex justify-between items-center py-4"
-                        key={value.label}
+                        key={index}
                       >
-                        <div>
                         <label
                           htmlFor={value.label}
                           className="text-lg capitalize"
@@ -127,15 +134,22 @@ function ProductEditForm() {
                           value={formik.values[value.label]}
                           className="border shadow-sm w-8/12"
                         />
-                         <p style={{ color: "red" }}>
+                      </div>
+                      <p style={{ color: "red" }}>
                         {formik.errors[value.label]}
                       </p>
-                      </div>
-                      </div>
-                     
                     </>
                   );
                 })}
+              </div>
+              <div>
+                <input
+                  type="file"
+                  name="image"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                  multiple
+                />
               </div>
               <button
                 type="submit"
@@ -151,4 +165,5 @@ function ProductEditForm() {
   );
 }
 
-export default ProductEditForm;
+
+export default LatestCollectionsForm
