@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectAllProducts } from "../../../store/ProductSlice";
+import { deleteProductData, fetchProducts, selectAllProducts } from "../../../store/ProductSlice";
 import { CiEdit } from "react-icons/ci";
 import { FaTrash } from "react-icons/fa6";
 import { IoEye } from "react-icons/io5";
@@ -11,9 +11,11 @@ import axios from "axios";
 import ProductEditForm from "../EditForms/ProductEditForm";
 
 function ProductsAdmin() {
+  const dispatch=useDispatch()
   const [notify, setNotify] = useState(false);
   const [match, setMatch] = useState("");
   const category = useSelector(selectAllProducts);
+  console.log("category",category)
   const [
     displayForm,
     setDisplayForm,
@@ -28,12 +30,8 @@ function ProductsAdmin() {
   ] = useContext(ContextProvide);
 
   const handleDelete = async (id) => {
-    try {
-      await axios.delete(`https://api-avsr.konceptsdandd.com/collections/${id}`);
-      alert("deleted");
-    } catch (error) {
-      console.log(error.message);
-    }
+    await dispatch(deleteProductData((id))).unwrap();
+    dispatch(fetchProducts())
   };
 
   return (
@@ -51,9 +49,11 @@ function ProductsAdmin() {
         </thead>
         <tbody>
           {category.map((product) => {
+            console.log(product)
             return product.collections.map((varity) => {
+              console.log("work1")
               return varity.division.map((divition) => {
-                return divition.division_details.map((items) => {
+                return divition.division_details.slice().reverse().map((items) => {
                   return (
                     <>
                       <tr
@@ -101,6 +101,7 @@ function ProductsAdmin() {
                               className=""
                               onClick={() => {
                                 setEditFormData({
+                                  _id:items._id,
                                   category_name: product.category_name,
                                   varity_name: varity.varity_name,
                                   division_name: divition.division_name,

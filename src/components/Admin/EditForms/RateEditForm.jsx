@@ -14,18 +14,7 @@ function RateEditForm() {
   const dispatch = useDispatch();
 
   const [
-    display,
-    setDisplay,
-    details,
-    setDetails,
-    displayDetails,
-    setDisplayDetails,
-    displayEdit,
-    setDisplayEdit,
-    editFormData,
-    setEditFormData,
-    rateDetails,
-    setRateDetails,
+    display, setDisplay, details, setDetails,displayDetails, setDisplayDetails,displayEdit, setDisplayEdit,editFormData,setEditFormData,rateDetails,setRateDetails,editLatest, setEditLatest,editRate, setEditRate
   ] = useContext(ContextProvide);
   console.log("editFormData",editFormData)
   const [intialValue, setIntialValue] = useState({});
@@ -64,7 +53,7 @@ function RateEditForm() {
           
               const updatedValues = {
                 ...values,
-                _id: String(editFormData._id), // Ensure _id is a string
+                _id: String(editFormData._id), 
               };
         
         
@@ -93,7 +82,7 @@ function RateEditForm() {
           <p>Rate Edit Form</p>
           <span
             className="absolute right-1 text-2xl top-1 "
-            onClick={() => setDisplay(false)}
+            onClick={() => setEditRate(false)}
           >
             <FaRegCircleXmark />
           </span>

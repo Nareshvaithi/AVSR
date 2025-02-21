@@ -19,8 +19,7 @@ function RateAdmin() {
     const [match, setMatch] = useState("");
   
   const [
-    display, setDisplay, details, setDetails,displayDetails, setDisplayDetails,displayEdit, setDisplayEdit,editFormData,setEditFormData,rateDetails,setRateDetails
-    ] = useContext(ContextProvide);
+    display, setDisplay, details, setDetails,displayDetails, setDisplayDetails,displayEdit, setDisplayEdit,editFormData,setEditFormData,rateDetails,setRateDetails,editLatest, setEditLatest,editRate, setEditRate    ] = useContext(ContextProvide);
 
     const handleDelete = async (id) => {
       try {
@@ -51,7 +50,7 @@ function RateAdmin() {
                 gram:value.gram,
                 _id:value._id,
               })
-              setDisplayEdit(true)}}/>
+              setEditRate(true)}}/>
             <FaTrash className=' ' onClick={()=>{
               setNotify(true);
               setMatch(value._id);
@@ -101,7 +100,7 @@ function RateAdmin() {
         <RateForm />
       </div>
 
-      <div className={`${displayEdit ? "block":"hidden"}`}>
+      <div className={`${editRate ? "block":"hidden"}`}>
         <RateEditForm />
       </div>
     </div>

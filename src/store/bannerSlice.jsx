@@ -11,6 +11,7 @@ export const fetchAddsBanners = createAsyncThunk(
   }
 );
 
+//add new records in banner....................
 export const addHomeAds = createAsyncThunk(
   "ads/addHomeAds",
   async (bannerData, { rejectWithValue }) => {

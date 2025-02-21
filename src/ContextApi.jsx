@@ -7,7 +7,10 @@ export const ContextProvide = createContext();
 function ContextApi(props) {
   const [display, setDisplay] = useState(false);
   const [displayDetails, setDisplayDetails] = useState(false);
+  const [editLatest, setEditLatest] = useState(false);
+  const [editRate, setEditRate] = useState(false);
   const [displayEdit, setDisplayEdit] = useState(false);
+  const [editLatestData, setEditLatestData] = useState({});
   const [editFormData,setEditFormData]=useState({})
   const [rateDetails,setRateDetails]=useState([])
   const [details, setDetails] = useState({
@@ -45,7 +48,7 @@ function ContextApi(props) {
   }, []);
 
   return (
-    <ContextProvide.Provider value={[display, setDisplay, details, setDetails,displayDetails, setDisplayDetails,displayEdit, setDisplayEdit,editFormData,setEditFormData,rateDetails,setRateDetails]}>
+    <ContextProvide.Provider value={[display, setDisplay, details, setDetails,displayDetails, setDisplayDetails,displayEdit, setDisplayEdit,editFormData,setEditFormData,rateDetails,setRateDetails,editLatest, setEditLatest,editRate, setEditRate,editLatestData, setEditLatestData]}>
       {props.children}
     </ContextProvide.Provider>
   );
