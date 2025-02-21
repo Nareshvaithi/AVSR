@@ -70,9 +70,10 @@ function ProductsForm() {
           });
         }
 
-        formik.resetForm();
+        
         await dispatch(addProductData(formData)).unwrap();
         await dispatch(fetchProducts());
+        setDisplayEdit(false)
       } catch (error) {
         alert(`Failed: ${error.message}`);
         console.log({ error: error.message });

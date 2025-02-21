@@ -3,7 +3,7 @@ import { selectFooterStoreImg } from "../store/footerSlice";
 import { useFormik } from "formik";
 import { selectHeaderLogo } from "../store/headerSlice";
 import { loginSchema } from "../schema/loginSchema";
-import { login } from "../store/AdminStore/auth";
+import { loginUser } from "../store/AdminStore/auth";
 import { useNavigate } from "react-router-dom";
 
 const Login = ()=>{
@@ -11,17 +11,26 @@ const Login = ()=>{
     const navigate = useNavigate();
     const storeImg = useSelector(selectFooterStoreImg);
     const logo = useSelector(selectHeaderLogo)
+    const { loading, error } = useSelector((state) => state.auth);
     const formik = useFormik({
         initialValues:{
-            username:'',
+            name:'',
             password:'',
         },
         validationSchema:loginSchema,
-        onSubmit:(values)=>{
-            dispatch(login());
+        onSubmit: async (values)=>{
+           
+        try{
+            const result = await  dispatch(loginUser(values));
+            console.log("result",result)
             console.log(values);
             formik.resetForm();
-            navigate('/admin');
+            if (result.meta.requestStatus === "fulfilled") {
+                navigate('/admin');
+              }
+        }catch(error){
+            console.log(error.message)
+        }
         }
     })
     
@@ -43,12 +52,12 @@ const Login = ()=>{
                             </div>
                             <form onSubmit={formik.handleSubmit} className="flex flex-col gap-5">
                                 <div>
-                                    <label htmlFor="username" className="text-lg font-medium cursor-pointer text-gray-600">Username</label>
+                                    <label htmlFor="name" className="text-lg font-medium cursor-pointer text-gray-600">Username</label>
                                     <input 
                                     onChange={formik.handleChange} 
-                                    value={formik.values.username} 
+                                    value={formik.values.name} 
                                     onBlur={formik.handleBlur}
-                                    name="username" 
+                                    name="name" 
                                     type="text" 
                                     id="username" 
                                     className="w-full px-3 py-2 bg-gray-200 outline-none"
@@ -69,7 +78,7 @@ const Login = ()=>{
                                      <p className="text-themeRed">{formik.touched && formik.handleBlur && formik.errors.password}</p>
                                 </div>
                                 <div className="text-center w-full lg:w-fit px-12 py-2 bg-green-800 text-white cursor-pointer hover:bg-themeRed/80">
-                                    <button type="submit">Login</button>
+                                    <button type="submit">{loading ? "Logging in..." : "Login"}</button>
                                 </div>
                             </form>
                         </div>

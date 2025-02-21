@@ -12,6 +12,7 @@ import sideBarReducer from "./store/AdminStore/AdminStore"
 import activeSideBarReducer from "./store/AdminStore/ActiveSideBarData"
 import authReducer from "./store/AdminStore/auth";
 
+
 export const store = configureStore({
     reducer:{
         auth:authReducer,

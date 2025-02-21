@@ -23,7 +23,7 @@ const handleDelete =  (id) => {
   console.log(id)
   dispatch(deleteBanner(id))
 };
-console.log(frontBanner.banners)
+console.log(frontBanner)
   return (
     <>
     <div>

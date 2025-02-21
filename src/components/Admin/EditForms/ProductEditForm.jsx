@@ -77,7 +77,7 @@ function ProductEditForm() {
         await dispatch(editProductData({ id, values })).unwrap();
         
         await dispatch(fetchProducts())
-        formik.resetForm();
+        setDisplayEdit(false)
         alert("Product Edit SuccessFully");
       } catch (error) {
         alert(`Failed: ${error.message}`);

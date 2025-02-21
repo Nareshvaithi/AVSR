@@ -130,6 +130,7 @@ export const latestCollectionsSlice = createSlice({
         if (index !== -1) {
             state.latest[index] = { ...state.latest[index], ...action.payload };
           }
+          alert("Product Posted Successfully");
     })
       .addCase(editData.rejected, (state, action) => {
         state.status = "failed";

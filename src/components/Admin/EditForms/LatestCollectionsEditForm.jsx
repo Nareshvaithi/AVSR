@@ -81,7 +81,7 @@ function LatestCollectionsEditForm() {
         setEditLatest(false)
       await dispatch(editData({ id: editLatestData._id, formData })).unwrap();
         dispatch(fetchLatestCollections())
-        alert("Product Posted Successfully");
+     
       } catch (error) {
         alert(`Failed: ${error.message}`);
         console.log({ error: error.message });
