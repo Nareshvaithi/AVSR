@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
 const API_URL = "http://localhost:3000/login";
 
 
@@ -51,15 +50,16 @@ const authSlice = createSlice({
         state.error = null;
         alert("success")
       })
-      .addCase(loginUser.rejected, (state, action) => {
+    .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
         state.isAuthenticated = false;
-        alert("failed")
-      });
+});
+
   },
 });
 
 export const { logout } = authSlice.actions;
 export const selectAuth = (state) => state.auth.isAuthenticated; 
+export const selectLoginLoading = (state) => state.auth.loading;
 export default authSlice.reducer;

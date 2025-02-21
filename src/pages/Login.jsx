@@ -3,7 +3,7 @@ import { selectFooterStoreImg } from "../store/footerSlice";
 import { useFormik } from "formik";
 import { selectHeaderLogo } from "../store/headerSlice";
 import { loginSchema } from "../schema/loginSchema";
-import { login, selectLogin } from "../store/AdminStore/auth";
+import { loginUser, selectLoginLoading} from "../store/AdminStore/auth";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -13,28 +13,42 @@ const Login = () => {
     const navigate = useNavigate();
     const storeImg = useSelector(selectFooterStoreImg);
     const logo = useSelector(selectHeaderLogo);
-    const isLogin = useSelector(selectLogin);
-
+    const loading = useSelector(selectLoginLoading);
     const formik = useFormik({
         initialValues: {
-            username: "",
+            name: "",
             password: "",
         },
         validationSchema: loginSchema,
-        onSubmit: (values) => {
-            dispatch(login());
-            toast.success("Login Successful!", {
-                position: "top-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-            });
-            console.log(values);
-            formik.resetForm();
-            navigate("/admin");
-        },
+        onSubmit: async (values) => {
+            try {
+                const resultAction = await dispatch(loginUser(values));
+                if (loginUser.fulfilled.match(resultAction)) {
+                    toast.success("Login Successful!", {
+                        position: "top-right",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                    });
+                    formik.resetForm();
+                    navigate("/admin");
+                } else {
+                    throw new Error(resultAction.payload || "Login Failed!");
+                }
+            } catch (error) {
+                toast.error(error.message, {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                });
+            }
+        }
+        
     });
 
     return (
@@ -54,20 +68,20 @@ const Login = () => {
                             </div>
                             <form onSubmit={formik.handleSubmit} className="flex flex-col gap-5">
                                 <div>
-                                    <label htmlFor="username" className="text-lg font-medium cursor-pointer text-gray-600">
+                                    <label htmlFor="name" className="text-lg font-medium cursor-pointer text-gray-600">
                                         Username
                                     </label>
                                     <input
                                         onChange={formik.handleChange}
-                                        value={formik.values.username}
+                                        value={formik.values.name}
                                         onBlur={formik.handleBlur}
-                                        name="username"
+                                        name="name"
                                         type="text"
-                                        id="username"
+                                        id="name"
                                         className="w-full px-3 py-2 bg-gray-200 outline-none"
                                     />
                                     <p className="text-themeRed">
-                                        {formik.touched.username && formik.errors.username}
+                                        {formik.touched.name && formik.errors.name}
                                     </p>
                                 </div>
                                 <div>
