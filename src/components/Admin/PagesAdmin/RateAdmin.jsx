@@ -13,12 +13,12 @@ function RateAdmin() {
 
   const dispatch=useDispatch()
   const fetchRate=useSelector((state)=>state.todayRate.todayAllRates)
-  console.log("fetchRate",fetchRate)
+  console.log("fetchRate",fetchRate) 
     const [notify, setNotify] = useState(false);
     const [match, setMatch] = useState("");
     const handleDelete = async (id) => {
       try {
-      
+    
         await dispatch(deleteRate(id)).unwrap()
        
       } catch (error) {
