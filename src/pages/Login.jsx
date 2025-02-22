@@ -3,7 +3,7 @@ import { selectFooterStoreImg } from "../store/footerSlice";
 import { useFormik } from "formik";
 import { selectHeaderLogo } from "../store/headerSlice";
 import { loginSchema } from "../schema/loginSchema";
-import { login, selectLogin } from "../store/AdminStore/auth";
+import { loginUser} from "../store/AdminStore/auth";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -13,16 +13,17 @@ const Login = () => {
     const navigate = useNavigate();
     const storeImg = useSelector(selectFooterStoreImg);
     const logo = useSelector(selectHeaderLogo);
-    const isLogin = useSelector(selectLogin);
+    const loading = useSelector(state => state.auth.loading);
 
     const formik = useFormik({
         initialValues: {
-            username: "",
+           name: "",
             password: "",
         },
         validationSchema: loginSchema,
-        onSubmit: (values) => {
-            dispatch(login());
+        onSubmit: async (values) => {
+            const resultAction = await dispatch(loginUser(values));
+        if(loginUser.fulfilled.match(resultAction)){
             toast.success("Login Successful!", {
                 position: "top-right",
                 autoClose: 3000,
@@ -31,9 +32,13 @@ const Login = () => {
                 pauseOnHover: true,
                 draggable: true,
             });
-            console.log(values);
-            formik.resetForm();
             navigate("/admin");
+        }else{
+            toast.error("Login Failed");
+        }
+            
+            
+            formik.resetForm();
         },
     });
 
@@ -54,20 +59,20 @@ const Login = () => {
                             </div>
                             <form onSubmit={formik.handleSubmit} className="flex flex-col gap-5">
                                 <div>
-                                    <label htmlFor="username" className="text-lg font-medium cursor-pointer text-gray-600">
-                                        Username
+                                    <label htmlFor="name" className="text-lg font-medium cursor-pointer text-gray-600">
+                                        name
                                     </label>
                                     <input
                                         onChange={formik.handleChange}
-                                        value={formik.values.username}
+                                        value={formik.values.name}
                                         onBlur={formik.handleBlur}
-                                        name="username"
+                                        name="name"
                                         type="text"
-                                        id="username"
+                                        id="name"
                                         className="w-full px-3 py-2 bg-gray-200 outline-none"
                                     />
                                     <p className="text-themeRed">
-                                        {formik.touched.username && formik.errors.username}
+                                        {formik.touched.name && formik.errors.name}
                                     </p>
                                 </div>
                                 <div>

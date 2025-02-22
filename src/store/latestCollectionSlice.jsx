@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 
 import axios from "axios";
 
@@ -54,23 +55,21 @@ export const deleteLatest = createAsyncThunk(
 //Edit the product details...........................
 
 export const editData = createAsyncThunk(
-    "ads/editData",
-    async ({ id, formData }, { rejectWithValue }) => {
-      try {
-        const response = await axios.put(`${API_URL}/${id}`, formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        });
-        console.log("Success");
-        return response.data;
-      } catch (error) {
-        return rejectWithValue(
-          error.response?.data || "Error adding latest collections"
-        );
-      }
+  "ads/editData",
+  async ({ id, formData }, { rejectWithValue }) => {
+    try {
+      const response = await axios.put(`${API_URL}/${id}`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      console.log("Success");
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data || "Error adding latest collections"
+      );
     }
-  );
-  
-
+  }
+);
 
 export const latestCollectionsSlice = createSlice({
   name: "latestCollections",
@@ -87,7 +86,6 @@ export const latestCollectionsSlice = createSlice({
       .addCase(fetchLatestCollections.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.latest = action.payload;
-        console.log(action.payload);
       })
       //for adding latest collections details and images...................................
       .addCase(addLatestData.pending, (state) => {
@@ -97,14 +95,23 @@ export const latestCollectionsSlice = createSlice({
       .addCase(addLatestData.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.latest = [...state.latest, action.payload];
+        toast.success("Add Successful!", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
       })
       .addCase(addLatestData.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload || "Something went wrong";
+        toast.error("Add Failed");
       })
 
       //for deleting latest collections........................
-      .addCase(deleteLatest .pending, (state) => {
+      .addCase(deleteLatest.pending, (state) => {
         state.status = "loading";
       })
       .addCase(deleteLatest.fulfilled, (state, action) => {
@@ -112,12 +119,20 @@ export const latestCollectionsSlice = createSlice({
         state.latest = state.latest.filter(
           (value) => value._id !== action.payload
         );
+        toast.success("Delete Successful!", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+      });
       })
       .addCase(deleteLatest.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
+        toast.error("Delete Failed");
       })
-
 
       //for editing latest collections........................
 
@@ -126,17 +141,26 @@ export const latestCollectionsSlice = createSlice({
       })
       .addCase(editData.fulfilled, (state, action) => {
         state.status = "succeeded";
-        const index = state.latest.findIndex((item) => item._id === action.payload._id);
+        const index = state.latest.findIndex(
+          (item) => item._id === action.payload._id
+        );
         if (index !== -1) {
-            state.latest[index] = { ...state.latest[index], ...action.payload };
-          }
-          alert("Product Posted Successfully");
-    })
+          state.latest[index] = { ...state.latest[index], ...action.payload };
+        }
+        toast.success("Edit Successful!", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+      });
+      })
       .addCase(editData.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
-      })
-
+        toast.error("Edit Failed");
+      });
   },
 });
 

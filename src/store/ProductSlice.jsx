@@ -1,3 +1,5 @@
+
+import { toast } from "react-toastify";
 import {
   createAsyncThunk,
   createEntityAdapter,
@@ -5,7 +7,7 @@ import {
 } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_URL = "https://api-avsr.konceptsdandd.com/collections";
+const API_URL = "http://localhost:3000/collections";
 
 const productAdapter = createEntityAdapter({
   selectId: (product) => product._id,
@@ -125,12 +127,61 @@ const productSlice = createSlice({
       })
       .addCase(addProductData.fulfilled, (state, action) => {
         state.status = "succeeded";
-        productAdapter.addOne(state, action.payload);
-        alert("Collections Post SuccessFully");
+      
+        const { category_name, varity_name, division_name, _id, ...newProduct } = action.payload;
+        
+        let existingCategory = Object.values(state.entities).find(
+          (cat) => cat.category_name === category_name
+        );
+      
+        if (!existingCategory) {
+          productAdapter.addOne(state, {
+            _id: Date.now().toString(), // Temporary ID
+            category_name,
+            collections: [{
+              varity_name,
+              division: [{
+                division_name,
+                division_details: [{ _id, ...newProduct }]
+              }]
+            }]
+          });
+        } else {
+          let existingVarity = existingCategory.collections.find(
+            (varity) => varity.varity_name === varity_name
+          );
+      
+          if (!existingVarity) {
+            existingCategory.collections.push({
+              varity_name,
+              division: [{
+                division_name,
+                division_details: [{ _id, ...newProduct }]
+              }]
+            });
+          } else {
+            let existingDivision = existingVarity.division.find(
+              (div) => div.division_name === division_name
+            );
+      
+            if (!existingDivision) {
+              existingVarity.division.push({
+                division_name,
+                division_details: [{ _id, ...newProduct }]
+              });
+            } else {
+              existingDivision.division_details.push({ _id, ...newProduct });
+            }
+          }
+        }
+      
+        toast.success("Add Successful!");
       })
+            
       .addCase(addProductData.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload || "Something went wrong";
+        toast.error(action.payload || "Add Failed");
       })
 
       //for deleting  collections........................
@@ -140,11 +191,21 @@ const productSlice = createSlice({
       .addCase(deleteProductData.fulfilled, (state, action) => {
         state.status = "succeeded";
         productAdapter.removeOne(state, action.payload);
-        alert("Product is deleted successfully");
+        toast.success("Delete Successful!", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+      });
       })
+
+
       .addCase(deleteProductData.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
+        toast.error("Delete Failed");
       })
 
       //for editing  collections........................
@@ -158,10 +219,19 @@ const productSlice = createSlice({
           id: action.payload._id,
           changes: action.payload,
         });
+        toast.success("Edit Successful!", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+      });
       })
       .addCase(editProductData.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
+        toast.error("Edit Failed");
       });
   },
 });

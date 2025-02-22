@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 import axios from "axios";
 const initialState = {
   todayAllRates: [],
@@ -44,9 +45,10 @@ export const deleteRate = createAsyncThunk(
   }
 );
 
-export const editRate = createAsyncThunk(
-  "rate/editRate",
+export const editRateData = createAsyncThunk(
+  "rate/editRateData",
   async ({ _id, ...updatedData }, { rejectWithValue }) => {
+   
     try {
         const response = await axios.put(`${API_URL}/${_id}`, updatedData);
       console.log("Success: Rate Edited", _id);
@@ -88,10 +90,19 @@ const todayRateSlice = createSlice({
       .addCase(addRate.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.todayAllRates = [...state.todayAllRates, action.payload];
+        toast.success("Add Successful!", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+      });
       })
       .addCase(addRate.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
+        toast.error("Add Failed");
       })
 
       //for deleting rate........................
@@ -102,27 +113,45 @@ const todayRateSlice = createSlice({
         state.status = "succeeded";
         state.todayAllRates = state.todayAllRates.filter(
           (rate) => rate._id !== action.payload
-        );
+        )
+        toast.success("Delete Successful!", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+      });
       })
       .addCase(deleteRate.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
+        toast.error("Delete Failed");
       })
 
 
       //for editing rate........................
-      .addCase(editRate.pending, (state) => {
+      .addCase(editRateData.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(editRate.fulfilled, (state, action) => {
+      .addCase(editRateData.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.todayAllRates = state.todayAllRates.map((rate) =>
             rate._id === action.payload._id ? action.payload : rate
-        );
+        )
+        toast.success("Edit Successful!", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+      });
     })      
-      .addCase(editRate.rejected, (state, action) => {
+      .addCase(editRateData.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
+        toast.error("Edit Failed");
       });
   },
 });

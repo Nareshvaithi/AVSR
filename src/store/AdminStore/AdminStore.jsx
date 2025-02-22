@@ -5,6 +5,7 @@ import { LiaImagesSolid } from "react-icons/lia";
 import { HiOutlineCollection } from "react-icons/hi";
 import { RiAdvertisementLine } from "react-icons/ri";
 import { AiOutlineProduct } from "react-icons/ai";
+import { HiOutlineLogout } from "react-icons/hi";
 
 
 
@@ -32,6 +33,11 @@ const initialValue=[
       {
             data:"Products",
             icon:<AiOutlineProduct />
+
+      },
+      {
+            data:"Logout",
+            icon:<HiOutlineLogout />
 
       }
 ]

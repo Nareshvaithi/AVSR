@@ -7,6 +7,7 @@ const API_URL = "http://localhost:3000/login";
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (userData, { rejectWithValue }) => {
+    
     try {
       const response = await axios.post(API_URL, userData);
       localStorage.setItem("token", response.data.token); 
@@ -49,13 +50,15 @@ const authSlice = createSlice({
         state.token = action.payload.token;
         state.isAuthenticated = true;
         state.error = null;
-        alert("success")
+        localStorage.setItem("user", JSON.stringify(action.payload.user));
+  localStorage.setItem("token", action.payload.token);
+        
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
         state.isAuthenticated = false;
-        alert("failed")
+        
       });
   },
 });

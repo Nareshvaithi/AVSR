@@ -44,7 +44,7 @@ const formik=useFormik({
               await dispatch(fetchTodayRate())
             
             } catch (error) {
-              alert(`Failed: ${error.message}`);
+             
               console.log({ error: error.message });
             }
           },

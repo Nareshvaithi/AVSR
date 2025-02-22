@@ -9,7 +9,6 @@ import {deleteHomeAds} from "../../../store/bannerSlice";
 import AdsBannerForm from '../Forms/AdsBannerForm';
 
 
-
 function AdsAdmin() {
   const [notify, setNotify] = useState(false);
   const [match, setMatch] = useState("");
@@ -19,20 +18,19 @@ function AdsAdmin() {
 
   const dispatch=useDispatch()
   const frontBanner = useSelector((state) => state.banners.addsBanners,shallowEqual);
-
+  console.log(frontBanner)
 const handleDelete =  (id) => {
   console.log(id)
   dispatch(deleteHomeAds(id))
 };
-console.log(frontBanner)
+
   return (
     <>
     <div>
     <div className='flex justify-start gap-5 p-4 flex-wrap'>
     {
       frontBanner.map((value)=>{
-        console.log(value)
-        console.log("value._id",value._id)
+        
         return <>
         <div className='relative p-4 w-96'>
 

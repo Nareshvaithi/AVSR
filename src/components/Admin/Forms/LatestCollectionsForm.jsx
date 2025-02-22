@@ -63,14 +63,14 @@ function LatestCollectionsForm() {
             formData.append(`image`, file);
           });
         }
-        alert("Product Posted Successfully");
+       
         formik.resetForm();
         setDisplayForm(false)
       await dispatch(addLatestData(formData)).unwrap();
         dispatch(fetchLatestCollections)
       
       } catch (error) {
-        alert(`Failed: ${error.message}`);
+       
         console.log({ error: error.message });
       }
     },

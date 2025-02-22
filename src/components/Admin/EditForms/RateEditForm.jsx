@@ -5,7 +5,7 @@ import { ContextProvide } from "../../../ContextApi";
 import { FaRegCircleXmark } from "react-icons/fa6";
 import {
   addRate,
-  editRate,
+  editRateData,
   fetchTodayRate,
 } from "../../../store/todayRateSlice";
 import { useDispatch } from "react-redux";
@@ -57,16 +57,9 @@ function RateEditForm() {
               };
         
         
-        await dispatch(editRate(updatedValues)).unwrap();
-        await dispatch(fetchTodayRate());
-        resetForm({
-            values: {
-              _id: "",
-              category_name: "",
-              rate: "",
-              gram: "",
-            },
-          });
+        await dispatch(editRateData(updatedValues)).unwrap();
+         dispatch(fetchTodayRate());
+         setEditRate(false)
           
       } catch (error) {
         alert(`Failed: ${error.message}`);

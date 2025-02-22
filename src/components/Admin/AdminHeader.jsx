@@ -9,35 +9,57 @@ import AdsAdmin from "../Admin/PagesAdmin/AdsAdmin";
 import ProductsAdmin from "../Admin/PagesAdmin/ProductsAdmin";
 import { GoPlusCircle } from "react-icons/go";
 import { ContextProvide } from "../../ContextApi";
+import Logout from "../../pages/Logout";
+import { useDispatch } from "react-redux";
+
+import { useNavigate } from "react-router-dom";
+import { logout } from "../../store/AdminStore/auth";
 
 
 function AdminHeader() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const category = useSelector((state) => state.sideBar);
   const active = useSelector((state) => state.activeSideBar);
-  const [displayForm,setDisplayForm]=useContext(ContextProvide)
-  console.log(displayForm)
-  let display;
+  const [display, setDisplay,details, setDetails,displayDetails, setDisplayDetails,displayEdit, setDisplayEdit,editFormData,setEditFormData,rateDetails,setRateDetails,editLatest, setEditLatest,editRate, setEditRate,editLatestData, setEditLatestData,displayRender, setDisplayRender]=useContext(ContextProvide)
+
+  let display1
   switch (active) {
     case "Rate":
-      display = <RateAdmin />;
+      display1 = <RateAdmin />;
       break;
     case "Home Banner":
-      display = <BannerHome />;
+      display1 = <BannerHome />;
       break;
 
     case "Latest Collections":
-      display = <LatestAdmin />;
+      display1 = <LatestAdmin />;
       break;
 
     case "Ads Banner":
-      display = <AdsAdmin />;
+      display1 = <AdsAdmin />;
       break;
     case "Products":
-      display = <ProductsAdmin />;
+      display1 = <ProductsAdmin />;
+      break;
+      case "Logout":
+      display1 = "Logout";
       break;
     default:
-      display = <RateAdmin />;
+      display1 = <RateAdmin />;
   }
+
+   const handleLogout=()=>{
+      dispatch(logout()); 
+      setTimeout(() => {
+        navigate("/login"); 
+      }, 500);
+    }
+    const handleNavigate=()=>{
+      setDisplayRender(false)
+      display1=<RateAdmin />
+     }
 
   return (
     <>
@@ -53,7 +75,7 @@ function AdminHeader() {
       </div>
       <div className="sticky top-0 bg-white flex justify-between px-4">
         <div className="h-20 flex items-center ">
-          <div className="flex justify-between  items-center border px-4 py-2 rounded-md bg-[#c39e41] text-[#faf9ff]" onClick={()=>setDisplayForm(true)}>
+          <div className="flex justify-between  items-center border px-4 py-2 rounded-md bg-[#c39e41] text-[#faf9ff]" onClick={()=>setDisplay(true)}>
           <GoPlusCircle />
           <p className="pl-2">Add Products</p>
           </div>
@@ -75,7 +97,17 @@ function AdminHeader() {
         </div>
        
       </div>
-      {<div>{display}</div>}
+      {<div>{display1=="Logout" ? 
+     <div className={`${displayRender ? "block" : "hidden"} flex justify-center items-center`} >
+      <div className="border p-4 shadow-xl">
+    <p>Are you sure you want to Logout</p>
+    <div className="flex justify-center gap-6 mt-5">
+      <p className=" px-4 py-1 text-white rounded-md bg-red-800" onClick={handleNavigate}>No</p>
+      <p className=" px-4 py-1 text-white rounded-md bg-green-800" onClick={handleLogout}>Yes</p>
+    </div>
+
+      </div>
+    </div> : display1  } </div>}
     </>
   );
 }

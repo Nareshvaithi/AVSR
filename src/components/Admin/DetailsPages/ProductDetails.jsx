@@ -7,6 +7,7 @@ function ProductDetails() {
   const [displayForm, setDisplayForm, details, setDetails,displayDetails, setDisplayDetails] =
     useContext(ContextProvide);
   console.log("details", details);
+ 
   return (
     <>
       <div className="w-full">
@@ -21,13 +22,13 @@ function ProductDetails() {
                 <div className="">
                   <div className="w-60">
                     <img
-                      src={details.items.images[1]}
+                      src={details.images[0]}
                       alt=""
                       className="w-full h-full"
                     />
                   </div>
                   <div className="flex mt-2 justify-start gap-3  ">
-                    {details.items.images.map((image) => {
+                    {details.images.map((image) => {
                       return (
                         <>
                           <div className="w-16 h-16 border p-1">
@@ -46,9 +47,9 @@ function ProductDetails() {
 
               <div>
                 <p className="text-lg font-semibold">
-                  {details.items.product_name}
+                  {details.product_name}
                 </p>
-                <p className="text-md">{details.items.product_code}</p>
+                <p className="text-md">{details.product_code}</p>
                 <div>
                   <table style={{ borderCollapse: "collapse", width: "100%" }}>
                     <thead className="sticky top-16">
@@ -69,7 +70,7 @@ function ProductDetails() {
                     </thead>
                     <tbody>
                       <tr
-                        key={details.items.product_code}
+                        key={details.product_code}
                         className="p-6 text-left text-gray-600 hover:bg-[#f7f7f7]"
                       >
                         <td className="border-t-2 border-l-2 border-b-2 px-6 py-2">
@@ -84,13 +85,13 @@ function ProductDetails() {
                           {details.division_name}
                         </td>
                         <td className="border-t-2 border-b-2 p-6">
-                          {details.items.mrp}
+                          {details.mrp}
                         </td>
                         <td className="border-t-2 border-b-2 p-6">
-                          {details.items.offer}
+                          {details.offer}
                         </td>
                         <td className="border-t-2 border-b-2 border-r-2 p-6">
-                          {details.items.discount}
+                          {details.discount}
                         </td>
                       </tr>
                     </tbody>

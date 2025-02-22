@@ -30,8 +30,6 @@ console.log(frontBanner)
     <div className='flex justify-start gap-5 p-4 flex-wrap'>
     {
       frontBanner.banners.map((value)=>{
-        console.log(value)
-        console.log("value._id",value._id)
         return <>
         <div className='relative p-4 w-96'>
 

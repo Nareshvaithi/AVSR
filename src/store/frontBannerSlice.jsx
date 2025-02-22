@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const API_URL = `https://api-avsr.konceptsdandd.com/banner`;
 
@@ -67,10 +68,21 @@ export const frontBannerSlice = createSlice({
             .addCase(addBanner.fulfilled, (state, action) => {
                 state.status = "succeeded";
                 state.banners = [...state.banners, action.payload]
+
+                toast.success("Add Successful!", {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                });
+          
             })
             .addCase(addBanner.rejected, (state, action) => {
                 state.status = "failed";
                 state.error = action.payload;
+                toast.error("Add Failed");
             })
             //for deleting banner images........................
             .addCase(deleteBanner.pending, (state) => {
@@ -79,10 +91,19 @@ export const frontBannerSlice = createSlice({
             .addCase(deleteBanner.fulfilled, (state, action) => {
                 state.status = "succeeded";
                 state.banners = state.banners.filter((banner) => banner._id !== action.payload);
+                toast.success("Delete Successful!", {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                });
             })
             .addCase(deleteBanner.rejected, (state, action) => {
                 state.status = "failed";
                 state.error = action.payload;
+                toast.error("Delete Failed");
             });
     }
 })

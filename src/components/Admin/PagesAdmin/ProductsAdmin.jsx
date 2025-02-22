@@ -15,7 +15,8 @@ function ProductsAdmin() {
   const [notify, setNotify] = useState(false);
   const [match, setMatch] = useState("");
   const category = useSelector(selectAllProducts);
-  console.log("category",category)
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
   const [
     displayForm,
     setDisplayForm,
@@ -28,6 +29,23 @@ function ProductsAdmin() {
     editFormData,
     setEditFormData,
   ] = useContext(ContextProvide);
+
+  const allProducts = category.flatMap(product => 
+    product.collections.flatMap(varity => 
+      varity.division.flatMap(divition => 
+        divition.division_details.map(items => ({
+          ...items,
+          category_name: product.category_name,
+          varity_name: varity.varity_name,
+          division_name: divition.division_name,
+        }))
+      )
+    )
+  );
+
+  const totalPages = Math.ceil(allProducts.length / itemsPerPage);
+  const paginatedProducts = allProducts.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
 
   const handleDelete = async (id) => {
     await dispatch(deleteProductData((id))).unwrap();
@@ -48,132 +66,69 @@ function ProductsAdmin() {
           </tr>
         </thead>
         <tbody>
-          {category.map((product) => {
-            console.log(product)
-            return product.collections.map((varity) => {
-              console.log("work1")
-              return varity.division.map((divition) => {
-                return divition.division_details.slice().reverse().map((items) => {
-                  return (
-                    <>
-                      <tr
-                        key={product.product_code}
-                        className="p-6 text-left text-gray-600 hover:bg-[#f7f7f7]"
-                      >
-                        <td className="border-t-2 border-b-2 px-6 py-2">
-                          <div className="flex  items-center">
-                            <div className="w-14 h-14 border p-1 rounded-md bg-[#4f4b4b]">
-                              <img src={items.images[1]} alt="" />
-                            </div>
+        {paginatedProducts.map(items => (
+            <tr key={items._id} className="p-6 text-left text-gray-600 hover:bg-[#f7f7f7]">
+              <td className="border-t-2 border-b-2 px-6 py-2">
+                <div className="flex items-center">
+                  <div className="w-14 h-14 border p-1 rounded-md bg-[#4f4b4b]">
+                    <img src={items.images?.[1]} alt="" />
+                  </div>
+                  <p className="pl-2">{items.product_name}</p>
+                </div>
+              </td>
+              <td className="border-t-2 border-b-2 p-6">{items.category_name}</td>
+              <td className="border-t-2 border-b-2 p-6">{items.varity_name}</td>
+              <td className="border-t-2 border-b-2 p-6">{items.division_name}</td>
+              <td className="border-t-2 border-b-2 p-6 relative">{items.product_code}</td>
+              <td className="border-t-2 border-b-2 p-6">
+                <div className="flex items-center justify-around text-gray-700 text-md">
+                  <p onClick={() => {
+                    setDetails(items);
+                    setDisplayDetails(true);
+                  }}>
+                    <IoEye />
+                  </p>
+                  <p onClick={() => {
+                    setEditFormData(items);
+                    setDisplayEdit(true);
+                  }}>
+                    <CiEdit />
+                  </p>
+                  <p>
+                    <FaTrash onClick={() => { setNotify(true); setMatch(items._id); }} />
+                    {match === items._id && notify && (
+                      <div className="absolute left-1/2 shadow-xl p-4 bg-white">
+                        <p>Are you sure you want to delete this product?</p>
+                        <div className="flex justify-center items-center gap-4 mt-4 text-white">
+                          <p className="border px-3 bg-red-800 rounded-md py-1" onClick={() => setNotify(false)}>No</p>
+                          <p className="border px-3 bg-green-800 rounded-md py-1" onClick={() => { handleDelete(items._id); setNotify(false); }}>Yes</p>
+                        </div>
+                      </div>
+                    )}
+                  </p>
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>      </table>
+        <div className="flex justify-center items-center mt-4">
+        <button
+          className={`px-4 py-2 mx-2 border rounded-md ${currentPage === 1 ? "bg-gray-300" : "bg-blue-600 text-white"}`}
+          disabled={currentPage === 1}
+          onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+        >
+          Previous
+        </button>
+        <span className="text-gray-800">Page {currentPage} of {totalPages}</span>
+        <button
+          className={`px-4 py-2 mx-2 border rounded-md ${currentPage === totalPages ? "bg-gray-300" : "bg-blue-600 text-white"}`}
+          disabled={currentPage === totalPages}
+          onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+        >
+          Next
+        </button>
+      </div>
 
-                            <p className="pl-2">{items.product_name}</p>
-                          </div>
-                        </td>
-                        <td className="border-t-2 border-b-2 p-6">
-                          {product.category_name}
-                        </td>
-                        <td className="border-t-2 border-b-2 p-6">
-                          {varity.varity_name}
-                        </td>
-                        <td className="border-t-2 border-b-2 p-6">
-                          {divition.division_name}
-                        </td>
-                        <td className="border-t-2 border-b-2 p-6">
-                          {items.product_code}
-                        </td>
-                        <td className="border-t-2 border-b-2 p-6 ">
-                          <div className="flex items-center justify-around text-gray-700 text-md">
-                            <p
-                              className=""
-                              onClick={() => {
-                                setDetails({
-                                  items,
-                                  category_name: product.category_name,
-                                  varity_name: varity.varity_name,
-                                  division_name: divition.division_name,
-                                });
-                                setDisplayDetails(true);
-                              }}
-                            >
-                              <IoEye />
-                            </p>
-                            <p
-                              className=""
-                              onClick={() => {
-                                setEditFormData({
-                                  _id:items._id,
-                                  category_name: product.category_name,
-                                  varity_name: varity.varity_name,
-                                  division_name: divition.division_name,
-                                  product_name: items.product_name,
-                                  product_code: items.product_code,
-                                  purity: items.purity,
-                                  Metal: items.Metal,
-                                  weight: items.weight,
-                                  price: items.price,
-                                  offer: items.offer,
-                                  discount: items.discount,
-                                  mrp: items.mrp,
-                                  images:items.images
-                                });
-                                setDisplayEdit(true);
-                              }}
-                            >
-                              <CiEdit />
-                            </p>
-                            <p className="">
-                              <FaTrash
-                                onClick={() => {
-                                  setNotify(true);
-                                  setMatch(items._id);
-                                }}
-                              />
-                              <div className="absolute  top-1/2 left-1/2">
-                                <div
-                                  className={`${
-                                    match == items._id && notify
-                                      ? "block"
-                                      : "hidden"
-                                  } shadow-xl p-4  bg-white`}
-                                >
-                                  <p>
-                                    Are you sure you want to delete this product
-                                  </p>
-                                  <div
-                                    className={` flex justify-center items-center gap-4 mt-4 text-white`}
-                                  >
-                                    <p
-                                      className="border px-3 bg-red-800 rounded-md py-1"
-                                      onClick={() => {
-                                        setNotify(false);
-                                      }}
-                                    >
-                                      No
-                                    </p>
-                                    <p
-                                      className="border px-3 bg-green-800 rounded-md py-1"
-                                      onClick={() => {
-                                        handleDelete(items._id);
-                                        setNotify(false);
-                                      }}
-                                    >
-                                      Yes
-                                    </p>
-                                  </div>
-                                </div>
-                              </div>
-                            </p>
-                          </div>
-                        </td>
-                      </tr>
-                    </>
-                  );
-                });
-              });
-            });
-          })}
-        </tbody>
-      </table>
       <div
         className={`${
           displayForm ? "block" : "hidden"

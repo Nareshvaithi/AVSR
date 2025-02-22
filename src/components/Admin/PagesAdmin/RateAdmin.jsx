@@ -24,10 +24,10 @@ function RateAdmin() {
     const handleDelete = async (id) => {
       try {
         await dispatch(deleteRate(id)).unwrap()
-        alert("deleted");
+       
       } catch (error) {
         console.error("Failed to delete:", error);
-    alert(`Failed to delete: ${error}`);
+       
       }
     };
   return (

@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { createContext } from "react";
+import RateAdmin from "./components/Admin/PagesAdmin/RateAdmin";
 
 export const ContextProvide = createContext();
 
@@ -10,6 +11,7 @@ function ContextApi(props) {
   const [editLatest, setEditLatest] = useState(false);
   const [editRate, setEditRate] = useState(false);
   const [displayEdit, setDisplayEdit] = useState(false);
+  const [displayRender, setDisplayRender] = useState(true);
   const [editLatestData, setEditLatestData] = useState({});
   const [editFormData,setEditFormData]=useState({})
   const [rateDetails,setRateDetails]=useState([])
@@ -17,7 +19,7 @@ function ContextApi(props) {
     category_name: "Gold",
     varity_name: "Necklace",
     division_name: "Short Necklace",
-    items: {
+    
       product_name: "Necklace_01",
       product_code: "xxxxxxxxxx",
       purity: "xxxxxxxxxxxx",
@@ -31,7 +33,7 @@ function ContextApi(props) {
       ],
       _id: "67b16a3793a0665c4810031d",
       createdAt: "2025-02-16T04:31:51.315Z",
-    },
+    
   });
 
   useEffect(() => {
@@ -48,7 +50,7 @@ function ContextApi(props) {
   }, []);
 
   return (
-    <ContextProvide.Provider value={[display, setDisplay, details, setDetails,displayDetails, setDisplayDetails,displayEdit, setDisplayEdit,editFormData,setEditFormData,rateDetails,setRateDetails,editLatest, setEditLatest,editRate, setEditRate,editLatestData, setEditLatestData]}>
+    <ContextProvide.Provider value={[display, setDisplay, details, setDetails,displayDetails, setDisplayDetails,displayEdit, setDisplayEdit,editFormData,setEditFormData,rateDetails,setRateDetails,editLatest, setEditLatest,editRate, setEditRate,editLatestData, setEditLatestData,displayRender, setDisplayRender]}>
       {props.children}
     </ContextProvide.Provider>
   );

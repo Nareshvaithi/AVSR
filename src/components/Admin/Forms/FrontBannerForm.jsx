@@ -46,7 +46,7 @@ function FrontBannerForm() {
       const formData = new FormData();
       formData.append("image", values.image);
       await dispatch(addBanner(formData)).unwrap();
-       dispatch(fetchFrontBanners)
+      await dispatch(fetchFrontBanners())
           if (document.getElementById("image")) {
             document.getElementById("image").value = "";
           }

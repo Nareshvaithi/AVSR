@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectAllProducts } from "../../store/ProductSlice";
 import adminImg from "../../assets/Admin/adminImage.jpg";
 import logoImg from "../../assets/Admin/logo.png";
 import {changeActive} from "../../store/AdminStore/ActiveSideBarData"
+import { ContextProvide } from "../../ContextApi";
 
 
 function CategoryAdmin() {
   const category = useSelector((state) => state.sideBar);
   const active = useSelector((state) => state.activeSideBar);
   const dispatch=useDispatch()
+    const [display, setDisplay, details, setDetails,displayDetails, setDisplayDetails,displayEdit, setDisplayEdit,editFormData,setEditFormData,rateDetails,setRateDetails,editLatest, setEditLatest,editRate, setEditRate,editLatestData, setEditLatestData,displayRender, setDisplayRender]=useContext(ContextProvide)
+  
+  
 const handleClick=(data)=>{
   
       dispatch(changeActive(data))
@@ -33,7 +37,9 @@ const handleClick=(data)=>{
           <div className=" mt-10 ">
             {category.map(({ data, icon }, index) => {
               return (
-                <div className={`${active == data ? "text-[#c39e41] bg-themeRed/50" : "text-[#faf9ff]" } flex flex-wrap  items-center py-4 pl-4`} onClick={(e)=>handleClick(data)}>
+                <div className={`${active == data ? "text-[#c39e41] bg-themeRed/50" : "text-[#faf9ff]" } flex flex-wrap  items-center py-4 pl-4`} onClick={(e)=>{
+                  setDisplayRender(true)
+                  handleClick(data)}}>
                   <p className=" pr-2 text-lg" key={index}>
                     {icon}
                   </p>

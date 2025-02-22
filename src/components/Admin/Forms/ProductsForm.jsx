@@ -4,7 +4,7 @@ import axios from "axios";
 import { FaRegCircleXmark } from "react-icons/fa6";
 import { ContextProvide } from "../../../ContextApi";
 import { useDispatch } from "react-redux";
-import { addProductData } from "../../../store/ProductSlice";
+import { addProductData,fetchProducts } from "../../../store/ProductSlice";
 
 function ProductsForm() {
   const dispatch = useDispatch();
@@ -69,7 +69,7 @@ function ProductsForm() {
             formData.append(`image`, file);
           });
         }
-
+       
         
         await dispatch(addProductData(formData)).unwrap();
         await dispatch(fetchProducts());
