@@ -10,8 +10,8 @@ function ProductsForm() {
   const buttonValue=useSelector(addStatus)
   const dispatch = useDispatch();
   const {
-    displayForm,
-    setDisplayForm,
+    display,
+    setDisplay,
     details,
     setDetails,
     displayEdit,
@@ -95,7 +95,7 @@ function ProductsForm() {
               <p className="w-11/12 text-center">Products Add Form</p>
               <p
                 className="text-[#c39e41] text-xl"
-                onClick={() => setDisplayForm(false)}
+                onClick={() => setDisplay(false)}
               >
                 <FaRegCircleXmark />
               </p>

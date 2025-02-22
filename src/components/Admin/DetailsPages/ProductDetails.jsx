@@ -10,7 +10,7 @@ function ProductDetails() {
  
   return (
     <>
-      <div className="w-full">
+      <div className=" mt-40">
         <div className="flex justify-center  ">
           <div className=" p-4 my-4 shadow-xl border relative bg-white">
             <div className="flex justify-center">

@@ -18,8 +18,7 @@ function ProductsAdmin() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
   const {
-    displayForm,
-    setDisplayForm,
+    display,
     details,
     setDetails,
     displayDetails,
@@ -128,11 +127,10 @@ function ProductsAdmin() {
           Next
         </button>
       </div>
-
       <div
         className={`${
-          displayForm ? "block" : "hidden"
-        } absolute top-0 text-nowrap w-full left-0`}
+          display ? "block" : "hidden"
+        } absolute top-52 text-nowrap w-full left-0`}
       >
         <div>
           <ProductsForm />

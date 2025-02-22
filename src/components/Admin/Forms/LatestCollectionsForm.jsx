@@ -8,7 +8,7 @@ import { addLatestData, addStatus, fetchLatestCollections } from "../../../store
 
 function LatestCollectionsForm() {
       const dispatch=useDispatch()
-          const {displayForm,setDisplayForm,details,setDetails,displayEdit, setDisplayEdit}=useContext(ContextProvide)
+          const {display,setDisplay,details,setDetails,displayEdit, setDisplayEdit}=useContext(ContextProvide)
       const buttonValue=useSelector(addStatus)
   const feilds = [
     { label: "varity_name", value: "" },
@@ -81,12 +81,12 @@ function LatestCollectionsForm() {
   };
   return (
     <>
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center  ">
         <div className="w-1/2 flex justify-center items-center p-4  ">
           <div className="w-7/12 border shadow-lg  rounded-md">
             <div className="flex justify-center  text-2xl text-[#c39e41] font-semibold mb-4 bg-green-800 py-2">
-              <p className="w-11/12 text-center">Products Form</p>
-              <p className="text-[#c39e41] text-xl" onClick={()=>setDisplayForm(false)}><FaRegCircleXmark /></p>
+              <p className="w-11/12 text-center">Latest Collections Form</p>
+              <p className="text-[#c39e41] text-xl" onClick={()=>setDisplay(false)}><FaRegCircleXmark /></p>
         </div>
             <form
               className="px-4 py-2 bg-[#f7f7f7] "

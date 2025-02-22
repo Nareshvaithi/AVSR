@@ -74,7 +74,7 @@ function AdminHeader() {
         <p>{active}</p>
         <div>Home/{active}</div>
       </div>
-      <div className="sticky top-0 bg-white flex justify-between px-4 z-50 shadow-lg">
+      <div className="sticky top-0 bg-white flex justify-between px-4  shadow-lg">
         <div className="h-20 flex items-center ">
           <div className="flex justify-between  items-center border px-4 py-2 rounded-md bg-[#c39e41] text-[#faf9ff]" onClick={()=>setDisplay(true)}>
           <GoPlusCircle />
