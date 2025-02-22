@@ -102,9 +102,7 @@ const Login = () => {
                                         {formik.touched.password && formik.errors.password}
                                     </p>
                                 </div>
-                                <div className="text-center w-full lg:w-fit px-12 py-2 bg-green-800 text-white cursor-pointer hover:bg-themeRed/80">
-                                    <button type="submit">{loading ? "Logging in..." : "Login"}</button>
-                                </div>
+                                    <button className="text-center w-full lg:w-fit px-12 py-2 bg-green-800 text-white cursor-pointer hover:bg-themeRed/80" type="submit">{loading ? "Logging in..." : "Login"}</button>
                             </form>
                         </div>
                     </div>

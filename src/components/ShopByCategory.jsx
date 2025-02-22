@@ -1,7 +1,9 @@
 import { useSelector } from "react-redux"
 import { selectAllCategory, selectStoreImg } from "../store/shopByCategorySlice"
+import { useNavigate } from "react-router-dom";
 
 const ShopByCategory = ()=>{
+    const navigate = useNavigate();
     const storeImgs = useSelector(selectStoreImg);
     const categorys = useSelector(selectAllCategory);
     return(
@@ -21,7 +23,7 @@ const ShopByCategory = ()=>{
                     <div className="w-full h-fit grid grid-cols-7 gap-1 lg:gap-5">
                     {
                         categorys.map(({id,category,img})=>{
-                            return <div key={id} className="w-full h-full">
+                            return <div onClick={()=>{navigate('/products');window.scrollTo(0,0)}} key={id} className="w-full h-full">
                                     <div className="cursor-pointer w-full h-fit rounded-xl shadow-sm shadow-black/30 border border-black/10">
                                         <img src={img} alt={category} className="w-full h-full object-cover rounded-xl hover:scale-105 transition-all duration-500"/>
                                     </div>
