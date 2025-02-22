@@ -44,7 +44,7 @@ function LatestAdmin() {
                     })}
                   </div>
                 </div>
-                <div className="px-1 relative">
+                <div className="px-1 relative ">
                 <div className="absolute  bottom-20">
                                 <div
                                   className={`${
