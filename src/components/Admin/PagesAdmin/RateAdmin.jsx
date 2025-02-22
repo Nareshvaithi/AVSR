@@ -66,7 +66,7 @@ function RateAdmin() {
                                     className={` flex justify-center items-center gap-4 mt-4 text-white`}
                                   >
                                     <p
-                                      className="border px-3 bg-red-800 rounded-md py-1"
+                                      className="border px-2 bg-red-800 rounded-md py-1"
                                       onClick={() => {
                                         setNotify(false);
                                       }}

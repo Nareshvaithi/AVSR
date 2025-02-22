@@ -7,7 +7,7 @@ import {changeActive} from "../../store/AdminStore/ActiveSideBarData"
 import { ContextProvide } from "../../ContextApi";
 
 function CategoryAdmin() {
-  const { setDisplayRender }=useContext(ContextProvide)
+  const { setDisplayRender } = useContext(ContextProvide)
   const category = useSelector((state) => state.sideBar);
   const active = useSelector((state) => state.activeSideBar);
   const dispatch=useDispatch();
@@ -36,8 +36,8 @@ const handleClick=(data)=>{
             {category.map(({ data, icon }, index) => {
               return (
                 <div className={`${active == data ? "text-[#c39e41] bg-themeRed/50" : "text-[#faf9ff]" } flex flex-wrap  items-center py-4 pl-4`} onClick={(e)=>{
-                  setDisplayRender(true)
-                  handleClick(data)}}>
+                  setDisplayRender(true);
+                  handleClick(data);}}>
                   <p className=" pr-2 text-lg" key={index}>
                     {icon}
                   </p>
