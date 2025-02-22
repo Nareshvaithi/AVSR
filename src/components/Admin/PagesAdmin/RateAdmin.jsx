@@ -38,7 +38,7 @@ function RateAdmin() {
             <p className='text-xl'>* Rate : {value.rate}</p>
             <p className='text-xl'>* Grams : {value.gram}gm</p>
             <div className='text-[#c39e41] text-2xl flex items-center gap-4 py-4 '>
-          
+        
             <MdEdit  className=' ' onClick={()=>{
               setEditFormData({
                 category_name:value.category_name,
