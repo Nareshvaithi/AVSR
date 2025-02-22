@@ -4,7 +4,7 @@ import { FaRegCircleXmark } from "react-icons/fa6";
 
 
 function ProductDetails() {
-  const [displayForm, setDisplayForm, details, setDetails,displayDetails, setDisplayDetails] =
+  const {displayForm, setDisplayForm, details, setDetails,displayDetails, setDisplayDetails}=
     useContext(ContextProvide);
   console.log("details", details);
  

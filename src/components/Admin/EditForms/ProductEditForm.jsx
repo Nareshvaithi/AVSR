@@ -1,15 +1,19 @@
-import React, {  useContext } from "react";
+import React, { useContext } from "react";
 import { useFormik } from "formik";
 
 import { FaRegCircleXmark } from "react-icons/fa6";
 import { ContextProvide } from "../../../ContextApi";
 import { useDispatch, useSelector } from "react-redux";
-import { editProductData, editStatus, fetchProducts } from "../../../store/ProductSlice";
+import {
+  editProductData,
+  editStatus,
+  fetchProducts,
+} from "../../../store/ProductSlice";
 
 function ProductEditForm() {
-  const buttonValue=useSelector(editStatus)
-  const dispatch=useDispatch()
-  const [
+  const buttonValue = useSelector(editStatus);
+  const dispatch = useDispatch();
+  const {
     display,
     setDisplay,
     details,
@@ -20,8 +24,8 @@ function ProductEditForm() {
     setDisplayEdit,
     editFormData,
     setEditFormData,
-  ] = useContext(ContextProvide);
-  console.log("editFormData",editFormData)
+  } = useContext(ContextProvide);
+  console.log("editFormData", editFormData);
   const feilds = [
     { label: "product_name", value: "" },
     { label: "product_code", value: "" },
@@ -33,7 +37,6 @@ function ProductEditForm() {
     { label: "discount", value: "" },
     { label: "mrp", value: "" },
   ];
-
 
   const formik = useFormik({
     initialValues: {
@@ -50,7 +53,7 @@ function ProductEditForm() {
     enableReinitialize: true,
     validate: (values) => {
       let error = {};
-      feilds.forEach(({ label}) => {
+      feilds.forEach(({ label }) => {
         if (!values[label]) {
           error[label] = "*Required*";
         }
@@ -58,8 +61,8 @@ function ProductEditForm() {
       return error;
     },
     onSubmit: async (values) => {
-      const id=editFormData._id
-      console.log("editFormData._id",editFormData._id)
+      const id = editFormData._id;
+      console.log("editFormData._id", editFormData._id);
       try {
         const formData = new FormData();
 
@@ -68,17 +71,15 @@ function ProductEditForm() {
             formData.append(key, values[key]);
           }
         });
-          
+
         for (let pair of formData.entries()) {
-            console.log(pair[0], pair[1]);
-          }
-        
-        
-      
+          console.log(pair[0], pair[1]);
+        }
+
         await dispatch(editProductData({ id, values })).unwrap();
-        
-        await dispatch(fetchProducts())
-        setDisplayEdit(false)
+
+        await dispatch(fetchProducts());
+        setDisplayEdit(false);
         alert("Product Edit SuccessFully");
       } catch (error) {
         alert(`Failed: ${error.message}`);
@@ -114,26 +115,25 @@ function ProductEditForm() {
                         key={value.label}
                       >
                         <div>
-                        <label
-                          htmlFor={value.label}
-                          className="text-lg capitalize"
-                        >
-                          {value.label}{" "}
-                        </label>
-                        <input
-                          type="text"
-                          id={value.label}
-                          name={value.label}
-                          onChange={formik.handleChange}
-                          value={formik.values[value.label]}
-                          className="border shadow-sm w-8/12"
-                        />
-                         <p style={{ color: "red" }}>
-                        {formik.errors[value.label]}
-                      </p>
+                          <label
+                            htmlFor={value.label}
+                            className="text-lg capitalize"
+                          >
+                            {value.label}{" "}
+                          </label>
+                          <input
+                            type="text"
+                            id={value.label}
+                            name={value.label}
+                            onChange={formik.handleChange}
+                            value={formik.values[value.label]}
+                            className="border shadow-sm w-8/12"
+                          />
+                          <p style={{ color: "red" }}>
+                            {formik.errors[value.label]}
+                          </p>
+                        </div>
                       </div>
-                      </div>
-                     
                     </>
                   );
                 })}

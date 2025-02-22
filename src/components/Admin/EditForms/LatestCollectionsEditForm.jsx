@@ -8,7 +8,7 @@ import {  editData, editStatus, fetchLatestCollections } from "../../../store/la
 
 function LatestCollectionsEditForm() {
       const dispatch=useDispatch()
-          const [display, setDisplay, details, setDetails,displayDetails, setDisplayDetails,displayEdit, setDisplayEdit,editFormData,setEditFormData,rateDetails,setRateDetails,editLatest, setEditLatest,editLatestData, setEditLatestData]=useContext(ContextProvide)
+          const {display, setDisplay, details, setDetails,displayDetails, setDisplayDetails,displayEdit, setDisplayEdit,editFormData,setEditFormData,rateDetails,setRateDetails,editLatest, setEditLatest,editLatestData, setEditLatestData}=useContext(ContextProvide)
       const buttonValue=useSelector(editStatus)
   const feilds = [
     { label: "varity_name", value: "" },

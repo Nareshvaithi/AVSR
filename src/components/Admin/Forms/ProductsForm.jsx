@@ -9,14 +9,14 @@ import { addProductData,addStatus,fetchProducts } from "../../../store/ProductSl
 function ProductsForm() {
   const buttonValue=useSelector(addStatus)
   const dispatch = useDispatch();
-  const [
+  const {
     displayForm,
     setDisplayForm,
     details,
     setDetails,
     displayEdit,
     setDisplayEdit,
-  ] = useContext(ContextProvide);
+  } = useContext(ContextProvide);
 
   const feilds = [
     { label: "varity_name", value: "" },

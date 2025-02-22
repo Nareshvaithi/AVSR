@@ -15,9 +15,9 @@ function RateEditForm() {
   const [load,setLoad]=useState("Submit")
   const dispatch = useDispatch();
   const editButtonValue=useSelector(editstatus)
-  const [
+  const {
     display, setDisplay, details, setDetails,displayDetails, setDisplayDetails,displayEdit, setDisplayEdit,editFormData,setEditFormData,rateDetails,setRateDetails,editLatest, setEditLatest,editRate, setEditRate
-  ] = useContext(ContextProvide);
+  } = useContext(ContextProvide);
   console.log("editFormData",editFormData)
   const [intialValue, setIntialValue] = useState({});
   const feilds = [

@@ -9,6 +9,7 @@ import { fetchLatestCollections } from './store/latestCollectionSlice.jsx'
 import { fetchTodayRate } from './store/todayRateSlice.jsx'
 import { fetchFrontBanners } from './store/frontBannerSlice.jsx'
 import { fetchAddsBanners } from './store/bannerSlice.jsx'
+import ContextApi from './ContextApi.jsx'
 
 store.dispatch(fetchFrontBanners());
 store.dispatch(fetchProducts());
@@ -17,10 +18,13 @@ store.dispatch(fetchTodayRate());
 store.dispatch(fetchAddsBanners());
 createRoot(document.getElementById('root')).render(
     <Provider store={store}>
+     
       <BrowserRouter>
+      <ContextApi >
       <Routes>
         <Route path='/*' element={<App/>}/>
       </Routes>
+      </ContextApi>
       </BrowserRouter>
     </Provider>
-)
+);

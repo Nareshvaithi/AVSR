@@ -17,7 +17,7 @@ function ProductsAdmin() {
   const category = useSelector(selectAllProducts);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
-  const [
+  const {
     displayForm,
     setDisplayForm,
     details,
@@ -28,7 +28,7 @@ function ProductsAdmin() {
     setDisplayEdit,
     editFormData,
     setEditFormData,
-  ] = useContext(ContextProvide);
+   } = useContext(ContextProvide);
 
   const allProducts = category.flatMap(product => 
     product.collections.flatMap(varity => 

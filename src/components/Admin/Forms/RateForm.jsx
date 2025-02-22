@@ -9,9 +9,9 @@ import { useDispatch, useSelector } from 'react-redux';
 function RateForm() {
   const dispatch=useDispatch()
   const addButtonValue=useSelector(addstatus)
-      const [
+      const {
           display, setDisplay, details, setDetails,displayDetails, setDisplayDetails,displayEdit, setDisplayEdit,editFormData,setEditFormData,rateDetails,setRateDetails
-          ] = useContext(ContextProvide);
+        } = useContext(ContextProvide);
       const [intialValue, setIntialValue] = useState({});
 const feilds=[
       {id:1,label:"category_name"},

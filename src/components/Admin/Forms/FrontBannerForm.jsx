@@ -22,7 +22,7 @@ function FrontBannerForm() {
         );
       }),
   });
-  const [
+  const {
     display,
     setDisplay,
     details,
@@ -35,7 +35,7 @@ function FrontBannerForm() {
     setEditFormData,
     rateDetails,
     setRateDetails,
-  ] = useContext(ContextProvide);
+  } = useContext(ContextProvide);
 
   const formik = useFormik({
     initialValues: {

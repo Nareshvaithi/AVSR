@@ -8,7 +8,7 @@ import { addLatestData, addStatus, fetchLatestCollections } from "../../../store
 
 function LatestCollectionsForm() {
       const dispatch=useDispatch()
-          const [displayForm,setDisplayForm,details,setDetails,displayEdit, setDisplayEdit]=useContext(ContextProvide)
+          const {displayForm,setDisplayForm,details,setDetails,displayEdit, setDisplayEdit}=useContext(ContextProvide)
       const buttonValue=useSelector(addStatus)
   const feilds = [
     { label: "varity_name", value: "" },

@@ -12,9 +12,9 @@ import {deleteBanner} from "../../../store/frontBannerSlice";
 function BannerHome() {
   const [notify, setNotify] = useState(false);
   const [match, setMatch] = useState("");
-  const [
+  const {
     display, setDisplay, details, setDetails,displayDetails, setDisplayDetails,displayEdit, setDisplayEdit,editFormData,setEditFormData,rateDetails,setRateDetails
-    ] = useContext(ContextProvide);
+   } = useContext(ContextProvide);
 
   const dispatch=useDispatch()
 const frontBanner=useSelector((state)=>state.frontBanner)

@@ -6,14 +6,12 @@ import logoImg from "../../assets/Admin/logo.png";
 import {changeActive} from "../../store/AdminStore/ActiveSideBarData"
 import { ContextProvide } from "../../ContextApi";
 
-
 function CategoryAdmin() {
+  const { setDisplayRender }=useContext(ContextProvide)
   const category = useSelector((state) => state.sideBar);
   const active = useSelector((state) => state.activeSideBar);
-  const dispatch=useDispatch()
-    const [display, setDisplay, details, setDetails,displayDetails, setDisplayDetails,displayEdit, setDisplayEdit,editFormData,setEditFormData,rateDetails,setRateDetails,editLatest, setEditLatest,editRate, setEditRate,editLatestData, setEditLatestData,displayRender, setDisplayRender]=useContext(ContextProvide)
-  
-  
+  const dispatch=useDispatch();
+
 const handleClick=(data)=>{
   
       dispatch(changeActive(data))

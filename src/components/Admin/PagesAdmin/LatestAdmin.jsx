@@ -12,9 +12,9 @@ function LatestAdmin() {
   const buttonValue=useSelector(deletestatus)
   const [notify, setNotify] = useState(false);
   const [match, setMatch] = useState("");
-  const [
+  const {
     display, setDisplay, details, setDetails,displayDetails, setDisplayDetails,displayEdit, setDisplayEdit,editFormData,setEditFormData,rateDetails,setRateDetails,editLatest, setEditLatest,editLatestData, setEditLatestData
-  ] = useContext(ContextProvide);
+   } = useContext(ContextProvide);
   const latestData = useSelector((state) => state.latestCollections.latest|| []);
 
   const handleDelete =  (id) => {

@@ -8,21 +8,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteRate } from '../../../store/todayRateSlice';
 import RateEditForm from '../EditForms/RateEditForm';
 
-
 function RateAdmin() {
-  
+  const {display, setDisplay, details, setDetails,displayDetails, setDisplayDetails,displayEdit, setDisplayEdit,editFormData,setEditFormData,rateDetails,setRateDetails,editLatest, setEditLatest,editRate, setEditRate }= useContext(ContextProvide);
+
   const dispatch=useDispatch()
   const fetchRate=useSelector((state)=>state.todayRate.todayAllRates)
   console.log("fetchRate",fetchRate)
-
     const [notify, setNotify] = useState(false);
     const [match, setMatch] = useState("");
-  
-  const [
-    display, setDisplay, details, setDetails,displayDetails, setDisplayDetails,displayEdit, setDisplayEdit,editFormData,setEditFormData,rateDetails,setRateDetails,editLatest, setEditLatest,editRate, setEditRate    ] = useContext(ContextProvide);
-
     const handleDelete = async (id) => {
       try {
+      
         await dispatch(deleteRate(id)).unwrap()
        
       } catch (error) {
@@ -42,7 +38,7 @@ function RateAdmin() {
             <p className='text-xl'>* Rate : {value.rate}</p>
             <p className='text-xl'>* Grams : {value.gram}gm</p>
             <div className='text-[#c39e41] text-2xl flex items-center gap-4 py-4 '>
-           
+          
             <MdEdit  className=' ' onClick={()=>{
               setEditFormData({
                 category_name:value.category_name,

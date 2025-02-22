@@ -14,7 +14,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
-    <ContextApi>
+   <>
       <ToastContainer/>
     <Routes>
       <Route path="/" element={<Layout/>}>
@@ -29,7 +29,7 @@ function App() {
         </Route>
         <Route path="/login" element={<Login />} />
       </Routes>
-    </ContextApi>
+      </>
   );
 }
 

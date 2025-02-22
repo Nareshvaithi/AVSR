@@ -19,7 +19,6 @@ function ContextApi(props) {
     category_name: "Gold",
     varity_name: "Necklace",
     division_name: "Short Necklace",
-    
       product_name: "Necklace_01",
       product_code: "xxxxxxxxxx",
       purity: "xxxxxxxxxxxx",
@@ -50,7 +49,7 @@ function ContextApi(props) {
   }, []);
 
   return (
-    <ContextProvide.Provider value={[display, setDisplay, details, setDetails,displayDetails, setDisplayDetails,displayEdit, setDisplayEdit,editFormData,setEditFormData,rateDetails,setRateDetails,editLatest, setEditLatest,editRate, setEditRate,editLatestData, setEditLatestData,displayRender, setDisplayRender]}>
+    <ContextProvide.Provider value={{display, setDisplay, details, setDetails,displayDetails, setDisplayDetails,displayEdit, setDisplayEdit,editFormData,setEditFormData,rateDetails,setRateDetails,editLatest, setEditLatest,editRate, setEditRate,editLatestData, setEditLatestData,displayRender, setDisplayRender}}>
       {props.children}
     </ContextProvide.Provider>
   );
