@@ -8,6 +8,9 @@ const initialState = {
   title: "Latest Collections",
   latest: [],
   status: "idle",
+  addStatus: "Submit",
+  deleteStatus: "Submit",
+  editStatus: "Submit",
   error: null,
 };
 
@@ -89,11 +92,11 @@ export const latestCollectionsSlice = createSlice({
       })
       //for adding latest collections details and images...................................
       .addCase(addLatestData.pending, (state) => {
-        state.status = "loading";
+        state.addStatus = "Processing";
         state.error = null;
       })
       .addCase(addLatestData.fulfilled, (state, action) => {
-        state.status = "succeeded";
+        state.addStatus = "Submit";
         state.latest = [...state.latest, action.payload];
         toast.success("Add Successful!", {
           position: "top-right",
@@ -105,17 +108,17 @@ export const latestCollectionsSlice = createSlice({
         });
       })
       .addCase(addLatestData.rejected, (state, action) => {
-        state.status = "failed";
+        state.addStatus = "Submit";
         state.error = action.payload || "Something went wrong";
         toast.error("Add Failed");
       })
 
       //for deleting latest collections........................
       .addCase(deleteLatest.pending, (state) => {
-        state.status = "loading";
+        state.deleteStatus = "Processing";
       })
       .addCase(deleteLatest.fulfilled, (state, action) => {
-        state.status = "succeeded";
+        state.deleteStatus = "Submit";
         state.latest = state.latest.filter(
           (value) => value._id !== action.payload
         );
@@ -129,7 +132,7 @@ export const latestCollectionsSlice = createSlice({
       });
       })
       .addCase(deleteLatest.rejected, (state, action) => {
-        state.status = "failed";
+        state.deleteStatus = "Submit";
         state.error = action.payload;
         toast.error("Delete Failed");
       })
@@ -137,10 +140,10 @@ export const latestCollectionsSlice = createSlice({
       //for editing latest collections........................
 
       .addCase(editData.pending, (state) => {
-        state.status = "loading";
+        state.editStatus = "Processing";
       })
       .addCase(editData.fulfilled, (state, action) => {
-        state.status = "succeeded";
+        state.editStatus = "Submit";
         const index = state.latest.findIndex(
           (item) => item._id === action.payload._id
         );
@@ -157,7 +160,7 @@ export const latestCollectionsSlice = createSlice({
       });
       })
       .addCase(editData.rejected, (state, action) => {
-        state.status = "failed";
+        state.editStatus = "Submit";
         state.error = action.payload;
         toast.error("Edit Failed");
       });
@@ -167,3 +170,6 @@ export const latestCollectionsSlice = createSlice({
 export default latestCollectionsSlice.reducer;
 export const latestCollectionTitle = (state) => state.latestCollections.title;
 export const latestCollections = (state) => state.latestCollections.latest;
+export const addStatus = (state) => state.latestCollections.addStatus;
+export const deletestatus = (state) => state.latestCollections.deletestatus;
+export const editStatus = (state) => state.latestCollections.editStatus;

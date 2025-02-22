@@ -4,11 +4,13 @@ import React, { useContext, useState } from "react";
 import { ContextProvide } from "../../../ContextApi";
 import { IoCloudUploadOutline } from "react-icons/io5";
 import * as Yup from "yup";
-import { useDispatch } from "react-redux";
-import { addHomeAds,fetchAddsBanners,deleteHomeAds} from "../../../store/bannerSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addHomeAds,fetchAddsBanners,deleteHomeAds, addstatus} from "../../../store/bannerSlice";
+
 
 function AdsBannerForm() {
   const dispatch = useDispatch();
+  const buttonValue=useSelector(addstatus)
   const validationSchema = Yup.object({
     image: Yup.mixed()
       .required("Image is required")
@@ -55,20 +57,24 @@ function AdsBannerForm() {
 
   return (
     <>
-      <div className="absolute left-1/2">
-        <div className="">
-          <div className="flex justify-center items-center bg-green-800 p-4 text-xl text-white relative">
-            <p>Banner Upload</p>
-            <span
+      <div className="flex justify-center items-center ">
+        <div className="border  w-1/2 shadow-xl rounded-lg">
+          
+          <form onSubmit={formik.handleSubmit} className="py-0 relative " >
+          <span
               className="absolute right-1 text-2xl top-1 "
               onClick={() => setDisplay(false)}
             >
               <FaRegCircleXmark />
             </span>
-          </div>
-          <form onSubmit={formik.handleSubmit} className="bg-slate-50">
-            <label htmlFor="image" className="capitalize"></label>
-            <div className="">
+
+            <label htmlFor="image" className="capitalize flex justify-center items-center py-4">
+              <div className="flex flex-col justify-center items-center text-gray-700">
+              <IoCloudUploadOutline size={96} />
+              <p className="text-2xl">Upload Files</p>
+              </div>
+            </label>
+            <div className="flex justify-center items-center">
               <input
                 type="file"
                 name="image"
@@ -76,8 +82,8 @@ function AdsBannerForm() {
                 onChange={(event) => {
                   formik.setFieldValue("image", event.currentTarget.files[0]);
                 }}
-                className="px-4 py-2"
-                accept="image/*"
+                className="hidden"
+                
               />
               {formik.errors.image && (
                 <p className="text-red-500 text-sm px-4">
@@ -85,8 +91,9 @@ function AdsBannerForm() {
                 </p>
               )}
             </div>
-            <div className="flex justify-center bg-green-800 py-2 text-white text-xl">
-              <button type="submit">Submit</button>
+            <div className="flex justify-center  mt-6 text-white text-xl pb-6">
+              <div className="flex justify-center bg-green-800 py-3 px-4 text-white text-xl rounded-lg"><button type="submit">{buttonValue}</button></div>
+              
             </div>
           </form>
         </div>

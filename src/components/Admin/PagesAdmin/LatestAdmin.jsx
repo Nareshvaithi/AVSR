@@ -3,12 +3,13 @@ import { useContext } from "react";
 import { ContextProvide } from "../../../ContextApi";
 import { useDispatch, useSelector } from "react-redux";
 import LatestCollectionsForm from "../Forms/LatestCollectionsForm";
-import { deleteLatest } from "../../../store/latestCollectionSlice";
+import { deleteLatest, deletestatus } from "../../../store/latestCollectionSlice";
 import LatestCollectionsEditForm from "../EditForms/LatestCollectionsEditForm";
 
 
 function LatestAdmin() {
   const dispatch=useDispatch()
+  const buttonValue=useSelector(deletestatus)
   const [notify, setNotify] = useState(false);
   const [match, setMatch] = useState("");
   const [
@@ -26,12 +27,12 @@ function LatestAdmin() {
         {latestData.map((value) => {
           return (
             <>
-              <div className="border flex gap-4 shadow-lg  items-start">
-                <div className=" p-4 mb-6">
+              <div className="border flex gap-4 shadow-lg  items-start py-4">
+                <div className=" px-4 mb-6">
                   <div className="w-80 mb-6 border shadow-lg">
                     <img src={value.url?.[0]} alt="" className="w-full h-full" />
                   </div>
-                  <div className="flex gap-2 ">
+                  <div className="flex gap-2 flex-wrap ">
                     {value.url.map((image) => {
                       return (
                         <>
@@ -79,16 +80,16 @@ function LatestAdmin() {
                                 </div>
                               </div>
 
-                  <p>Category name - <span className="text-xl font-semibold">{value.category_name}</span></p>
-                  <p>Varity name - <span className="text-xl font-semibold">{value.varity_name}</span></p>
-                  <p>Product name - <span className="text-xl font-semibold">{value.product_name}</span></p>
-                  <p>Product Code - <span className="text-xl font-semibold">{value.product_code}</span></p>
-                  <p>Purity - <span className="text-xl font-semibold">{value.purity}</span></p>
-                  <p>Weight - <span className="text-xl font-semibold">{value.weight}</span></p>
-                  <p>MRP - <span className="text-xl font-semibold">{value.mrp}</span></p>
-                  <p>Price - <span className="text-xl font-semibold">{value.price}</span></p>
-                  <p>Offer - <span className="text-xl font-semibold">{value.offer}</span></p>
-                  <p>discount - <span className="text-xl font-semibold">{value.discount}</span></p>
+                  <p className="">Category name - <span className="text-xl font-semibold">{value.category_name}</span></p>
+                  <p className="py-1">Varity name - <span className="text-xl font-semibold">{value.varity_name}</span></p>
+                  <p className="py-1">Product name - <span className="text-xl font-semibold">{value.product_name}</span></p>
+                  <p className="py-1">Product Code - <span className="text-xl font-semibold">{value.product_code}</span></p>
+                  <p className="py-1">Purity - <span className="text-xl font-semibold">{value.purity}</span></p>
+                  <p className="py-1">Weight - <span className="text-xl font-semibold">{value.weight}</span></p>
+                  <p className="py-1">MRP - <span className="text-xl font-semibold">{value.mrp}</span></p>
+                  <p className="py-1">Price - <span className="text-xl font-semibold">{value.price}</span></p>
+                  <p className="py-1">Offer - <span className="text-xl font-semibold">{value.offer}</span></p>
+                  <p className="py-1">discount - <span className="text-xl font-semibold">{value.discount}</span></p>
                   <div className="flex gap-4 items-center mt-4">
                   <p className="border px-2 py-1 text-white rounded-md bg-green-800" onClick={()=>{
                     setEditLatest(true)

@@ -3,13 +3,13 @@ import { useFormik } from "formik";
 import axios from "axios";
 import { FaRegCircleXmark } from "react-icons/fa6";
 import { ContextProvide } from "../../../ContextApi";
-import { useDispatch } from "react-redux";
-import {  editData, fetchLatestCollections } from "../../../store/latestCollectionSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {  editData, editStatus, fetchLatestCollections } from "../../../store/latestCollectionSlice";
 
 function LatestCollectionsEditForm() {
       const dispatch=useDispatch()
           const [display, setDisplay, details, setDetails,displayDetails, setDisplayDetails,displayEdit, setDisplayEdit,editFormData,setEditFormData,rateDetails,setRateDetails,editLatest, setEditLatest,editLatestData, setEditLatestData]=useContext(ContextProvide)
-      
+      const buttonValue=useSelector(editStatus)
   const feilds = [
     { label: "varity_name", value: "" },
     { label: "product_name", value: "" },
@@ -169,7 +169,7 @@ function LatestCollectionsEditForm() {
                 type="submit"
                 className="border flex justify-center w-full items-center mt-6 py-2 text-xl font-semibold bg-green-800 text-white rounded-md"
               >
-                Submit
+                {buttonValue}
               </button>
             </form>
           </div>

@@ -38,6 +38,7 @@ export const deleteBanner = createAsyncThunk("frontBanner/deleteBanner", async (
 const initialState = {
     banners:[],
     status:"idle",
+    addstatus:"Submit",
     error:null,
 }
 
@@ -63,10 +64,10 @@ export const frontBannerSlice = createSlice({
 
             //for adding banner images...................................
             .addCase(addBanner.pending, (state) => {
-                state.status = "loading"; 
+                state.addstatus = "Proccessing"; 
             })
             .addCase(addBanner.fulfilled, (state, action) => {
-                state.status = "succeeded";
+                state.addstatus = "Submit";
                 state.banners = [...state.banners, action.payload]
 
                 toast.success("Add Successful!", {
@@ -80,7 +81,7 @@ export const frontBannerSlice = createSlice({
           
             })
             .addCase(addBanner.rejected, (state, action) => {
-                state.status = "failed";
+                state.addstatus = "Submit";
                 state.error = action.payload;
                 toast.error("Add Failed");
             })
@@ -111,3 +112,4 @@ export const frontBannerSlice = createSlice({
 export default frontBannerSlice.reducer;
 export const selectFrontBanner = (state) => state.frontBanner.banners;
 export const selectFrontBannerStatus = (state) => state.frontBanner.status;
+export const addstatus = (state) => state.frontBanner.addstatus;

@@ -113,7 +113,7 @@ function ProductsAdmin() {
         </tbody>      </table>
         <div className="flex justify-center items-center mt-4">
         <button
-          className={`px-4 py-2 mx-2 border rounded-md ${currentPage === 1 ? "bg-gray-300" : "bg-blue-600 text-white"}`}
+          className={`px-4 py-2 mx-2 border rounded-md ${currentPage === 1 ? "bg-gray-300" : "bg-[#c39e41] text-white"}`}
           disabled={currentPage === 1}
           onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
         >
@@ -121,7 +121,7 @@ function ProductsAdmin() {
         </button>
         <span className="text-gray-800">Page {currentPage} of {totalPages}</span>
         <button
-          className={`px-4 py-2 mx-2 border rounded-md ${currentPage === totalPages ? "bg-gray-300" : "bg-blue-600 text-white"}`}
+          className={`px-4 py-2 mx-2 border rounded-md ${currentPage === totalPages ? "bg-gray-300" : "bg-[#c39e41] text-white"}`}
           disabled={currentPage === totalPages}
           onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
         >

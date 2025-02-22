@@ -3,6 +3,13 @@ import axios from "axios";
 import { toast } from "react-toastify";
 const API_URL = "https://api-avsr.konceptsdandd.com/ads";
 
+const initialState = {
+  addsBanners: [],
+  addstatus: "Browse Files",
+  status: "idle",
+  error: null,
+};
+
 export const fetchAddsBanners = createAsyncThunk(
   "ads/fetchAddBanners",
   async () => {
@@ -40,11 +47,6 @@ export const deleteHomeAds = createAsyncThunk(
   }
 );
 
-const initialState = {
-  addsBanners: [],
-  status: "idle",
-  error: null,
-};
 
 const bannersSlice = createSlice({
   name: "banners",
@@ -61,10 +63,10 @@ const bannersSlice = createSlice({
       })
         //for adding banner images...................................
         .addCase(addHomeAds.pending, (state) => {
-            state.status = "loading";
+            state.addstatus= "Processing";
         })
         .addCase(addHomeAds.fulfilled, (state, action) => {
-            state.status = "succeeded";
+            state.addstatus = "Browse Files";
             state.addsBanners = [...state.addsBanners, action.payload]
             toast.success("Add Successful!", {
               position: "top-right",
@@ -76,7 +78,7 @@ const bannersSlice = createSlice({
           });
         })
         .addCase(addHomeAds.rejected, (state, action) => {
-            state.status = "failed";
+            state.addstatus = "Submit";
             state.error = action.payload;
             toast.error("Add Failed");
         })
@@ -110,3 +112,4 @@ const bannersSlice = createSlice({
 
 export default bannersSlice.reducer;
 export const selectAddsBanners = (state) => state.banners.addsBanners;
+export const addstatus = (state) => state.banners.addstatus;

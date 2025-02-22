@@ -6,6 +6,9 @@ const initialState = {
   goldPrice: 0,
   silverPrice: 0,
   status: "idle",
+  editstatus: "Submit",
+  deletestatus: "Submit",
+  addstatus: "Submit",
   error: null,
 };
 
@@ -85,10 +88,10 @@ const todayRateSlice = createSlice({
       })
       //for adding rates...................................
       .addCase(addRate.pending, (state) => {
-        state.status = "loading";
+        state.addstatus = "Proccessing";
       })
       .addCase(addRate.fulfilled, (state, action) => {
-        state.status = "succeeded";
+        state.addstatus = "Submit";
         state.todayAllRates = [...state.todayAllRates, action.payload];
         toast.success("Add Successful!", {
           position: "top-right",
@@ -100,17 +103,17 @@ const todayRateSlice = createSlice({
       });
       })
       .addCase(addRate.rejected, (state, action) => {
-        state.status = "failed";
+        state.addstatus = "Submit";
         state.error = action.payload;
         toast.error("Add Failed");
       })
 
       //for deleting rate........................
       .addCase(deleteRate.pending, (state) => {
-        state.status = "loading";
+        state.deletestatus = "Proccessing";
       })
       .addCase(deleteRate.fulfilled, (state, action) => {
-        state.status = "succeeded";
+        state.deletestatus = "succeeded";
         state.todayAllRates = state.todayAllRates.filter(
           (rate) => rate._id !== action.payload
         )
@@ -124,7 +127,7 @@ const todayRateSlice = createSlice({
       });
       })
       .addCase(deleteRate.rejected, (state, action) => {
-        state.status = "failed";
+        state.deletestatus = "Submit";
         state.error = action.payload;
         toast.error("Delete Failed");
       })
@@ -132,10 +135,10 @@ const todayRateSlice = createSlice({
 
       //for editing rate........................
       .addCase(editRateData.pending, (state) => {
-        state.status = "loading";
+        state.editstatus = "Proccessing";
       })
       .addCase(editRateData.fulfilled, (state, action) => {
-        state.status = "succeeded";
+        state.editstatus = "Submit";
         state.todayAllRates = state.todayAllRates.map((rate) =>
             rate._id === action.payload._id ? action.payload : rate
         )
@@ -149,7 +152,7 @@ const todayRateSlice = createSlice({
       });
     })      
       .addCase(editRateData.rejected, (state, action) => {
-        state.status = "failed";
+        state.editstatus = "submit";
         state.error = action.payload;
         toast.error("Edit Failed");
       });
@@ -159,3 +162,5 @@ const todayRateSlice = createSlice({
 export default todayRateSlice.reducer;
 export const getGoldRate = (state) => state.todayRate.goldPrice;
 export const getSliverRate = (state) => state.todayRate.silverPrice;
+export const editstatus = (state) => state.todayRate.editstatus;
+export const addstatus = (state) => state.todayRate.addstatus;

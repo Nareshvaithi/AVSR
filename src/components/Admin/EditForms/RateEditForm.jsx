@@ -6,13 +6,15 @@ import { FaRegCircleXmark } from "react-icons/fa6";
 import {
   addRate,
   editRateData,
+  editstatus,
   fetchTodayRate,
 } from "../../../store/todayRateSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 function RateEditForm() {
+  const [load,setLoad]=useState("Submit")
   const dispatch = useDispatch();
-
+  const editButtonValue=useSelector(editstatus)
   const [
     display, setDisplay, details, setDetails,displayDetails, setDisplayDetails,displayEdit, setDisplayEdit,editFormData,setEditFormData,rateDetails,setRateDetails,editLatest, setEditLatest,editRate, setEditRate
   ] = useContext(ContextProvide);
@@ -42,6 +44,7 @@ function RateEditForm() {
       return error;
     },
     onSubmit: async (values,{ resetForm }) => {
+      setLoad("Proccessing...")
       setDisplayEdit(false)
       try {
         if (!values._id || typeof values._id !== "string") {
@@ -108,7 +111,7 @@ function RateEditForm() {
             })}
           </div>
           <div className="flex justify-center bg-green-800 py-2 text-white text-xl">
-            <button type="submit">Submit</button>
+            <button type="submit">{editButtonValue}</button>
           </div>
         </form>
       </div>

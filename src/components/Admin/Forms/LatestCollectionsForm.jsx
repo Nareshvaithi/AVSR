@@ -3,13 +3,13 @@ import { useFormik } from "formik";
 import axios from "axios";
 import { FaRegCircleXmark } from "react-icons/fa6";
 import { ContextProvide } from "../../../ContextApi";
-import { useDispatch } from "react-redux";
-import { addLatestData, fetchLatestCollections } from "../../../store/latestCollectionSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addLatestData, addStatus, fetchLatestCollections } from "../../../store/latestCollectionSlice";
 
 function LatestCollectionsForm() {
       const dispatch=useDispatch()
           const [displayForm,setDisplayForm,details,setDetails,displayEdit, setDisplayEdit]=useContext(ContextProvide)
-      
+      const buttonValue=useSelector(addStatus)
   const feilds = [
     { label: "varity_name", value: "" },
     { label: "division_name", value: "" },
@@ -155,7 +155,7 @@ function LatestCollectionsForm() {
                 type="submit"
                 className="border flex justify-center w-full items-center mt-6 py-2 text-xl font-semibold bg-green-800 text-white rounded-md"
               >
-                Submit
+                {buttonValue}
               </button>
             </form>
           </div>

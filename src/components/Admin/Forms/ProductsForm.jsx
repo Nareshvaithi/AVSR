@@ -3,10 +3,11 @@ import { useFormik } from "formik";
 import axios from "axios";
 import { FaRegCircleXmark } from "react-icons/fa6";
 import { ContextProvide } from "../../../ContextApi";
-import { useDispatch } from "react-redux";
-import { addProductData,fetchProducts } from "../../../store/ProductSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addProductData,addStatus,fetchProducts } from "../../../store/ProductSlice";
 
 function ProductsForm() {
+  const buttonValue=useSelector(addStatus)
   const dispatch = useDispatch();
   const [
     displayForm,
@@ -54,7 +55,7 @@ function ProductsForm() {
       });
       return error;
     },
-    onSubmit: async (values) => {
+    onSubmit: async (values,{ resetForm }) => {
       try {
         const formData = new FormData();
 
@@ -69,11 +70,12 @@ function ProductsForm() {
             formData.append(`image`, file);
           });
         }
-       
+        setDisplayForm(false)
         
         await dispatch(addProductData(formData)).unwrap();
         await dispatch(fetchProducts());
         setDisplayEdit(false)
+        resetForm();
       } catch (error) {
         alert(`Failed: ${error.message}`);
         console.log({ error: error.message });
@@ -90,7 +92,7 @@ function ProductsForm() {
         <div className="w-1/2 flex justify-center items-center p-4  ">
           <div className="w-7/12 border shadow-lg  rounded-md">
             <div className="flex justify-center  text-2xl text-[#c39e41] font-semibold mb-4 bg-green-800 py-2">
-              <p className="w-11/12 text-center">Products Form</p>
+              <p className="w-11/12 text-center">Products Add Form</p>
               <p
                 className="text-[#c39e41] text-xl"
                 onClick={() => setDisplayForm(false)}
@@ -99,7 +101,7 @@ function ProductsForm() {
               </p>
             </div>
             <form
-              className="px-4 py-2 bg-[#f7f7f7] "
+              className="px-4 py-2 bg-[#f7f7f7] overflow-scroll h-[500px]"
               onSubmit={formik.handleSubmit}
               method="POST"
             >
@@ -111,6 +113,7 @@ function ProductsForm() {
                   onChange={formik.handleChange}
                   value={formik.values.category}
                 >
+                  <option value="Add">Select Category</option>
                   <option value="Gold">Gold</option>
                   <option value="Diamond">Diamond</option>
                   <option value="Silver">Silver</option>
@@ -165,7 +168,7 @@ function ProductsForm() {
                 type="submit"
                 className="border flex justify-center w-full items-center mt-6 py-2 text-xl font-semibold bg-green-800 text-white rounded-md"
               >
-                Submit
+                {buttonValue}
               </button>
             </form>
           </div>

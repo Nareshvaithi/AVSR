@@ -3,12 +3,12 @@ import { useFormik } from 'formik';
 import React, { useContext ,useState} from 'react'
 import { ContextProvide } from '../../../ContextApi';
 import { FaRegCircleXmark } from "react-icons/fa6";
-import { addRate,fetchTodayRate} from '../../../store/todayRateSlice';
-import { useDispatch } from 'react-redux';
+import { addRate,addstatus,fetchTodayRate} from '../../../store/todayRateSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 function RateForm() {
   const dispatch=useDispatch()
-  
+  const addButtonValue=useSelector(addstatus)
       const [
           display, setDisplay, details, setDetails,displayDetails, setDisplayDetails,displayEdit, setDisplayEdit,editFormData,setEditFormData,rateDetails,setRateDetails
           ] = useContext(ContextProvide);
@@ -76,7 +76,7 @@ const formik=useFormik({
                 })}
             </div>
             <div className='flex justify-center bg-green-800 py-2 text-white text-xl'>
-                  <button type='submit'>Submit</button>
+                  <button type='submit'>{addButtonValue}</button>
             </div>
             </form>
       </div>

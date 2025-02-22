@@ -3,11 +3,7 @@ import { selectFooterStoreImg } from "../store/footerSlice";
 import { useFormik } from "formik";
 import { selectHeaderLogo } from "../store/headerSlice";
 import { loginSchema } from "../schema/loginSchema";
-<<<<<<< HEAD
 import { loginUser} from "../store/AdminStore/auth";
-=======
-import { loginUser, selectLoginLoading} from "../store/AdminStore/auth";
->>>>>>> refs/remotes/origin/main
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -17,42 +13,15 @@ const Login = () => {
     const navigate = useNavigate();
     const storeImg = useSelector(selectFooterStoreImg);
     const logo = useSelector(selectHeaderLogo);
-<<<<<<< HEAD
     const loading = useSelector(state => state.auth.loading);
 
     const formik = useFormik({
         initialValues: {
            name: "",
-=======
-    const loading = useSelector(selectLoginLoading);
-    const formik = useFormik({
-        initialValues: {
-            name: "",
->>>>>>> refs/remotes/origin/main
             password: "",
         },
         validationSchema: loginSchema,
         onSubmit: async (values) => {
-<<<<<<< HEAD
-            const resultAction = await dispatch(loginUser(values));
-        if(loginUser.fulfilled.match(resultAction)){
-            toast.success("Login Successful!", {
-                position: "top-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-            });
-            navigate("/admin");
-        }else{
-            toast.error("Login Failed");
-        }
-            
-            
-            formik.resetForm();
-        },
-=======
             try {
                 const resultAction = await dispatch(loginUser(values));
                 if (loginUser.fulfilled.match(resultAction)) {
@@ -81,7 +50,6 @@ const Login = () => {
             }
         }
         
->>>>>>> refs/remotes/origin/main
     });
 
     return (
@@ -102,11 +70,7 @@ const Login = () => {
                             <form onSubmit={formik.handleSubmit} className="flex flex-col gap-5">
                                 <div>
                                     <label htmlFor="name" className="text-lg font-medium cursor-pointer text-gray-600">
-<<<<<<< HEAD
                                         name
-=======
-                                        Username
->>>>>>> refs/remotes/origin/main
                                     </label>
                                     <input
                                         onChange={formik.handleChange}

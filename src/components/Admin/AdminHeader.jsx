@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import adminImg from "../../assets/Admin/adminImage.jpg";
 import logoImg from "../../assets/Admin/logo.png";
 import { useSelector } from "react-redux";
@@ -14,12 +14,12 @@ import { useDispatch } from "react-redux";
 
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../store/AdminStore/auth";
+import { changeActive } from "../../store/AdminStore/ActiveSideBarData";
 
 
 function AdminHeader() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const category = useSelector((state) => state.sideBar);
   const active = useSelector((state) => state.activeSideBar);
   const [display, setDisplay,details, setDetails,displayDetails, setDisplayDetails,displayEdit, setDisplayEdit,editFormData,setEditFormData,rateDetails,setRateDetails,editLatest, setEditLatest,editRate, setEditRate,editLatestData, setEditLatestData,displayRender, setDisplayRender]=useContext(ContextProvide)
@@ -51,14 +51,15 @@ function AdminHeader() {
   }
 
    const handleLogout=()=>{
-      dispatch(logout()); 
+      dispatch(logout());
+      dispatch(changeActive("Rate"))
       setTimeout(() => {
-        navigate("/login"); 
+        navigate("/login");
       }, 500);
     }
     const handleNavigate=()=>{
       setDisplayRender(false)
-      display1=<RateAdmin />
+      dispatch(changeActive("Rate"))
      }
 
   return (
@@ -97,7 +98,7 @@ function AdminHeader() {
         </div>
        
       </div>
-      {<div>{display1=="Logout" ? 
+      {<div>{display1=="Logout" ? <>
      <div className={`${displayRender ? "block" : "hidden"} flex justify-center items-center`} >
       <div className="border p-4 shadow-xl">
     <p>Are you sure you want to Logout</p>
@@ -107,7 +108,7 @@ function AdminHeader() {
     </div>
 
       </div>
-    </div> : display1  } </div>}
+    </div> </>: display1  } </div>}
     </>
   );
 }

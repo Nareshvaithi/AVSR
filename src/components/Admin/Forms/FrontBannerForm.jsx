@@ -4,11 +4,12 @@ import React, { useContext, useState } from "react";
 import { ContextProvide } from "../../../ContextApi";
 import { IoCloudUploadOutline } from "react-icons/io5";
 import * as Yup from "yup";
-import { useDispatch } from "react-redux";
-import { addBanner, fetchFrontBanners } from "../../../store/frontBannerSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addBanner, addstatus, fetchFrontBanners } from "../../../store/frontBannerSlice";
 
 function FrontBannerForm() {
   const dispatch = useDispatch();
+  const addButtonValue=useSelector(addstatus)
   const validationSchema = Yup.object({
     image: Yup.mixed()
       .required("Image is required")
@@ -86,7 +87,7 @@ function FrontBannerForm() {
               )}
             </div>
             <div className="flex justify-center bg-green-800 py-2 text-white text-xl">
-              <button type="submit">Submit</button>
+              <button type="submit">{addButtonValue}</button>
             </div>
           </form>
         </div>

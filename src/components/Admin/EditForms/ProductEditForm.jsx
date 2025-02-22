@@ -3,10 +3,11 @@ import { useFormik } from "formik";
 
 import { FaRegCircleXmark } from "react-icons/fa6";
 import { ContextProvide } from "../../../ContextApi";
-import { useDispatch } from "react-redux";
-import { editProductData, fetchProducts } from "../../../store/ProductSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { editProductData, editStatus, fetchProducts } from "../../../store/ProductSlice";
 
 function ProductEditForm() {
+  const buttonValue=useSelector(editStatus)
   const dispatch=useDispatch()
   const [
     display,
@@ -100,7 +101,7 @@ function ProductEditForm() {
               </p>
             </div>
             <form
-              className="px-4 py-2 bg-[#f7f7f7] "
+              className="px-4 py-2 bg-[#f7f7f7] overflow-scroll h-[500px] "
               onSubmit={formik.handleSubmit}
               method="POST"
             >
@@ -141,7 +142,7 @@ function ProductEditForm() {
                 type="submit"
                 className="border flex justify-center w-full items-center mt-6 py-2 text-xl font-semibold bg-green-800 text-white rounded-md"
               >
-                Submit
+                {buttonValue}
               </button>
             </form>
           </div>
