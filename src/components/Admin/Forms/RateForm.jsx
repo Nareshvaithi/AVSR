@@ -56,7 +56,9 @@ const formik=useFormik({
       <div className=''>
             <div className='flex justify-center items-center bg-green-800 p-4 text-xl text-white relative'>
                   <p>Rate Updation Form</p>
-                  <span className='absolute right-1 text-2xl top-1 ' onClick={()=>setDisplay(false)}><FaRegCircleXmark />
+                  <span className='absolute right-1 text-2xl top-1 ' onClick={()=>{
+                    
+                    setDisplay(!display)}}><FaRegCircleXmark />
                   </span>
             </div>
             <form onSubmit={formik.handleSubmit} className='bg-slate-50'>

@@ -50,7 +50,7 @@ const Header = () => {
                 <img src={logo} alt="AVSR Saravana Jewellery" className="w-full h-full object-cover" />
                 
                 {/* Search Bar */}
-                <div className="static mt-2 lg:absolute bottom-7 z-10 w-full sm:w-3/5 lg:w-2/6 bg-white px-3 py-2 sm:p-1 rounded-full font-mainFont1 shadow-md mx-auto right-32">
+                <div className="static mt-2 lg:absolute bottom-7 z-10 w-full sm:w-3/5 lg:w-2/6 bg-white px-3 py-2 sm:p-1 rounded-full font-mainFont1 shadow-md mx-auto right-28">
                     <div className="flex items-center justify-between">
                         <input
                             type="search"

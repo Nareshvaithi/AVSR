@@ -80,11 +80,11 @@ const ShowProducts = () => {
                                                         alt=""
                                                     />
                                                     <div className="w-full h-full inset-0 absolute opacity-0 group-hover:opacity-100 transition-opacity duration-1000">
-                                                        <img
-                                                            src={images[0]}
-                                                            alt=""
-                                                            className="w-full h-full object-cover"
-                                                        />
+                                                        <vide>
+                                                        <source src={images[1]||images[0]} className="w-full h-full object-cover" type="video/mp4" />
+                                                        </vide>
+                                                         
+                                                        
                                                     </div>
                                                 </div>
                                                 <h3 className="text-center font-mainFont1 text-lg py-2 font-[500]">

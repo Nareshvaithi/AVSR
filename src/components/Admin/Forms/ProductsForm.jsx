@@ -70,12 +70,12 @@ function ProductsForm() {
             formData.append(`image`, file);
           });
         }
-        setDisplayForm(false)
+        // setDisplayForm(false)
         
         await dispatch(addProductData(formData)).unwrap();
         await dispatch(fetchProducts());
         setDisplayEdit(false)
-        resetForm();
+        // resetForm();
       } catch (error) {
         alert(`Failed: ${error.message}`);
         console.log({ error: error.message });

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectAllProducts } from "../../store/ProductSlice";
 import adminImg from "../../assets/Admin/adminImage.jpg";
@@ -8,6 +8,11 @@ import { ContextProvide } from "../../ContextApi";
 
 function CategoryAdmin() {
   const { setDisplayRender }=useContext(ContextProvide)
+  // const checker= useContext(ContextProvide)
+  // useEffect(()=>{
+  //   console.log("checker",checker)
+  // },[checker])
+   
   const category = useSelector((state) => state.sideBar);
   const active = useSelector((state) => state.activeSideBar);
   const dispatch=useDispatch();

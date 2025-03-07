@@ -34,7 +34,7 @@ const Navbar = () => {
     return (
         <nav 
             className={`w-full py-3 transition-all duration-300 ${isSticky ? "fixed top-0 left-0 right-0 w-full bg-white shadow-md z-50" : "relative"}`}>
-            <div className="container flex flex-col lg:flex-row items-center justify-between">
+            <div className="px-28 flex flex-col lg:flex-row items-center justify-between">
             <ul className="w-fit h-full flex items-center gap-5 font-mainFont1 text-sm lg:text-xl">
                 <li onClick={()=>{window.scrollTo(0,0)}}><NavLink to={"/"}>Home</NavLink></li>
                 {navigations.map(({ id, category, to }) => (

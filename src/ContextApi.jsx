@@ -3,7 +3,46 @@ import React, { useEffect, useState } from "react";
 import { createContext } from "react";
 import RateAdmin from "./components/Admin/PagesAdmin/RateAdmin";
 
-export const ContextProvide = createContext();
+const initialValue = {
+  display: false,
+  setDisplay: () => {},
+  setDetails: () => {},
+  displayDetails: false,
+  setDisplayDetails: () => {},
+  displayEdit: false,
+  setDisplayEdit: () => {},
+  editFormData: {},
+  setEditFormData: () => {},
+  rateDetails: [],
+  setRateDetails: () => {},
+  editLatest: false,
+  setEditLatest: () => {},
+  editRate: false,
+  setEditRate: () => {},
+  editLatestData: {},
+  setEditLatestData: () => {},
+  displayRender:false,
+  setDisplayRender: () => {},
+  details: {
+    category_name: "Gold",
+    varity_name: "Necklace",
+    division_name: "Short Necklace",
+    product_name: "Necklace_01",
+    product_code: "xxxxxxxxxx",
+    purity: "xxxxxxxxxxxx",
+    weight: "xxxxxxxxxxxx",
+    offer: "xxxxxxxxxxxx",
+    discount: "xxxxxxxxxxxx",
+    mrp: "xxxxxxxxxxxx",
+    images: [
+      "http://api-avsr.konceptsdandd.com/ASSETS/PRODUCT_IMAGES/image_1739680311277.webp",
+      "http://api-avsr.konceptsdandd.com/ASSETS/PRODUCT_IMAGES/image_1739680311277.png",
+    ],
+    _id: "67b16a3793a0665c4810031d",
+    createdAt: "2025-02-16T04:31:51.315Z",
+  },
+};
+export const ContextProvide = createContext(initialValue);
 
 function ContextApi(props) {
   const [display, setDisplay] = useState(false);
@@ -11,45 +50,69 @@ function ContextApi(props) {
   const [editLatest, setEditLatest] = useState(false);
   const [editRate, setEditRate] = useState(false);
   const [displayEdit, setDisplayEdit] = useState(false);
-  const [displayRender, setDisplayRender] = useState(true);
+  const [displayRender, setDisplayRender] = useState(false);
   const [editLatestData, setEditLatestData] = useState({});
-  const [editFormData,setEditFormData]=useState({})
-  const [rateDetails,setRateDetails]=useState([])
+  const [editFormData, setEditFormData] = useState({});
+  const [rateDetails, setRateDetails] = useState([]);
   const [details, setDetails] = useState({
     category_name: "Gold",
     varity_name: "Necklace",
     division_name: "Short Necklace",
-      product_name: "Necklace_01",
-      product_code: "xxxxxxxxxx",
-      purity: "xxxxxxxxxxxx",
-      weight: "xxxxxxxxxxxx",
-      offer: "xxxxxxxxxxxx",
-      discount: "xxxxxxxxxxxx",
-      mrp: "xxxxxxxxxxxx",
-      images: [
-        "http://api-avsr.konceptsdandd.com/ASSETS/PRODUCT_IMAGES/image_1739680311277.webp",
-        "http://api-avsr.konceptsdandd.com/ASSETS/PRODUCT_IMAGES/image_1739680311277.png",
-      ],
-      _id: "67b16a3793a0665c4810031d",
-      createdAt: "2025-02-16T04:31:51.315Z",
-    
+    product_name: "Necklace_01",
+    product_code: "xxxxxxxxxx",
+    purity: "xxxxxxxxxxxx",
+    weight: "xxxxxxxxxxxx",
+    offer: "xxxxxxxxxxxx",
+    discount: "xxxxxxxxxxxx",
+    mrp: "xxxxxxxxxxxx",
+    images: [
+      "http://api-avsr.konceptsdandd.com/ASSETS/PRODUCT_IMAGES/image_1739680311277.webp",
+      "http://api-avsr.konceptsdandd.com/ASSETS/PRODUCT_IMAGES/image_1739680311277.png",
+    ],
+    _id: "67b16a3793a0665c4810031d",
+    createdAt: "2025-02-16T04:31:51.315Z",
   });
 
   useEffect(() => {
     const rateFetch = async () => {
       try {
-        const response = await axios.get("https://api-avsr.konceptsdandd.com/rate");
-       setRateDetails(response.data)
+        const response = await axios.get(
+          "https://api-avsr.konceptsdandd.com/rate"
+        );
+        setRateDetails(response.data);
       } catch (error) {
-        console.error("Error fetching rate:", error); 
+        console.error("Error fetching rate:", error);
       }
     };
-  
+
     rateFetch();
   }, []);
 
   return (
-    <ContextProvide.Provider value={{display, setDisplay, details, setDetails,displayDetails, setDisplayDetails,displayEdit, setDisplayEdit,editFormData,setEditFormData,rateDetails,setRateDetails,editLatest, setEditLatest,editRate, setEditRate,editLatestData, setEditLatestData,displayRender, setDisplayRender}}>
+    <ContextProvide.Provider
+      value={{
+        display,
+        setDisplay,
+        details,
+        setDetails,
+        displayDetails,
+        setDisplayDetails,
+        displayEdit,
+        setDisplayEdit,
+        editFormData,
+        setEditFormData,
+        rateDetails,
+        setRateDetails,
+        editLatest,
+        setEditLatest,
+        editRate,
+        setEditRate,
+        editLatestData,
+        setEditLatestData,
+        displayRender,
+        setDisplayRender,
+      }}
+    >
       {props.children}
     </ContextProvide.Provider>
   );

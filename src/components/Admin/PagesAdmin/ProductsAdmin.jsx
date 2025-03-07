@@ -139,7 +139,7 @@ function ProductsAdmin() {
       <div
         className={`${
           displayDetails ? "block" : "hidden"
-        } absolute top-28  text-nowrap w-full left-28 `}
+        } absolute top-10  text-nowrap w-full left-28 `}
       >
         <ProductDetails />
       </div>

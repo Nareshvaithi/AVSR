@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { ContextProvide } from '../../../ContextApi';
 import RateForm from '../Forms/RateForm';
 import { FaTrash } from "react-icons/fa";
@@ -7,10 +7,12 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteRate } from '../../../store/todayRateSlice';
 import RateEditForm from '../EditForms/RateEditForm';
-
 function RateAdmin() {
   const {display, setDisplay, details, setDetails,displayDetails, setDisplayDetails,displayEdit, setDisplayEdit,editFormData,setEditFormData,rateDetails,setRateDetails,editLatest, setEditLatest,editRate, setEditRate }= useContext(ContextProvide);
 
+  useEffect(()=>{
+    console.log("display",display)
+    },[display])    
   const dispatch=useDispatch()
   const fetchRate=useSelector((state)=>state.todayRate.todayAllRates)
   console.log("fetchRate",fetchRate) 
@@ -20,7 +22,7 @@ function RateAdmin() {
       try {
     
         await dispatch(deleteRate(id)).unwrap()
-       
+      
       } catch (error) {
         console.error("Failed to delete:", error);
        
@@ -31,14 +33,12 @@ function RateAdmin() {
     <div className='flex gap-10 items-center p-4'>
       {
         fetchRate.map((value)=>{
-          
-          return <>
+    return <>
           <div className='border p-4 bg-[#7a6fbe] text-white'>
             <p className='text-xl'>* category_name : {value.category_name}</p>
             <p className='text-xl'>* Rate : {value.rate}</p>
             <p className='text-xl'>* Grams : {value.gram}gm</p>
             <div className='text-[#c39e41] text-2xl flex items-center gap-4 py-4 '>
-        
             <MdEdit  className=' ' onClick={()=>{
               setEditFormData({
                 category_name:value.category_name,
@@ -92,13 +92,14 @@ function RateAdmin() {
           </>
         })
       }
-      <div className={`${display ? "block":"hidden"}`}>
+      {/* <div className={`${display ? "block":"hidden"}`}>
         <RateForm />
       </div>
 
       <div className={`${editRate ? "block":"hidden"}`}>
         <RateEditForm />
-      </div>
+      </div> */}
+      {display ? <RateForm /> : null}
     </div>
     </>
   )

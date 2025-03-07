@@ -24,31 +24,34 @@ function AdminHeader() {
   const active = useSelector((state) => state.activeSideBar);
   const {display, setDisplay,details, setDetails,displayDetails, setDisplayDetails,displayEdit, setDisplayEdit,editFormData,setEditFormData,rateDetails,setRateDetails,editLatest, setEditLatest,editRate, setEditRate,editLatestData, setEditLatestData,displayRender, setDisplayRender}=useContext(ContextProvide)
 
-  let display1
-  switch (active) {
-    case "Rate":
-      display1 = <RateAdmin />;
-      break;
-    case "Home Banner":
-      display1 = <BannerHome />;
-      break;
+  // let display1
+  // switch (active) {
+  //   case "Rate":
+  //     display1 = <RateAdmin />;
+  //     break;
+  //   case "Home Banner":
+  //     display1 = <BannerHome />;
+  //     break;
 
-    case "Latest Collections":
-      display1 = <LatestAdmin />;
-      break;
+  //   case "Latest Collections":
+  //     display1 = <LatestAdmin />;
+  //     break;
 
-    case "Ads Banner":
-      display1 = <AdsAdmin />;
-      break;
-    case "Products":
-      display1 = <ProductsAdmin />;
-      break;
-      case "Logout":
-      display1 = "Logout";
-      break;
-    default:
-      display1 = <RateAdmin />;
-  }
+  //   case "Ads Banner":
+  //     display1 = <AdsAdmin />;
+  //     break;
+  //   case "Products":
+  //     display1 = <ProductsAdmin />;
+  //     break;
+  //     case "Logout":
+  //     display1 = "Logout";
+  //     break;
+  //   default:
+  //     display1 = <RateAdmin />;
+  // }
+   useEffect(()=>{
+      console.log("Header display",display)
+      },[display])
 
    const handleLogout=()=>{
       dispatch(logout());
@@ -76,7 +79,11 @@ function AdminHeader() {
       </div>
       <div className="sticky top-0 bg-white flex justify-between px-4  shadow-lg">
         <div className="h-20 flex items-center ">
-          <div className="flex justify-between  items-center border px-4 py-2 rounded-md bg-[#c39e41] text-[#faf9ff]" onClick={()=>setDisplay(true)}>
+          <div className="flex justify-between  items-center border px-4 py-2 rounded-md bg-[#c39e41] text-[#faf9ff]" onClick={()=>{
+            console.log("good",display)
+            setDisplay(!display)
+          
+            }}>
           <GoPlusCircle />
           <p className="pl-2">Add Products</p>
           </div>
@@ -98,7 +105,8 @@ function AdminHeader() {
         </div>
        
       </div>
-      {<div>{display1=="Logout" ? <>
+
+      {<div>{active=="Logout" ? <>
      <div className={`${displayRender ? "block" : "hidden"} flex justify-center items-center`} >
       <div className="border p-4 shadow-xl">
     <p>Are you sure you want to Logout</p>
@@ -108,7 +116,31 @@ function AdminHeader() {
     </div>
 
       </div>
-    </div> </>: display1  } </div>}
+    </div> </> : <>
+    {
+      active == "Rate" ? <RateAdmin /> : null
+
+    }
+    {
+      active == "Home Banner" ? <BannerHome /> : null
+      
+    }
+        {
+      active == "Latest Collections" ? <LatestAdmin /> : null
+      
+    }
+
+{
+      active == "Ads Banner" ? <AdsAdmin /> : null
+      
+    }
+
+{
+      active == "Products" ? <ProductsAdmin />: null
+      
+    }
+
+    </>  } </div>}
     </>
   );
 }

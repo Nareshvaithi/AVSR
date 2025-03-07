@@ -16,6 +16,8 @@ function AdsAdmin() {
     display, setDisplay, details, setDetails,displayDetails, setDisplayDetails,displayEdit, setDisplayEdit,editFormData,setEditFormData,rateDetails,setRateDetails
   } = useContext(ContextProvide);
 
+  
+
   const dispatch=useDispatch()
   const frontBanner = useSelector((state) => state.banners.addsBanners,shallowEqual);
   console.log(frontBanner)
