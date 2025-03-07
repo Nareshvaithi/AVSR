@@ -20,26 +20,18 @@ const initialState = {
     storeImg:storeImg,
     contactNo:"+91 9600 507 952",
     storeSpecials:[
-        {id:1,name:"EASY GOLD PLANTHE",img:easyGoldImg},
+        {id:1,name:"EASY GOLD PLAN",img:easyGoldImg},
         {id:2,name:"SPECIAL DISCOUNT",img:specialDiscountImg},
         {id:3,name:"SPECIAL OCCASIONS",img:specialOccasionImg},
     ],
     footerlinks1:[
-        {id:1,title:"BSI Hallmark",link:""},
-        {id:2,title:"Free Insured Shipping & Delivery",link:""},
-        {id:3,title:"Diamond Certified",link:""},
+        {id:1,title:"Free Insured Shipping & Delivery",link:""},
+        {id:2,title:"Diamond Certified",link:""},
     ],
     footerlinks2:[
         {id:1,title:"About Us",link:""},
         {id:2,title:"Contact Us",link:""},
         {id:3,title:"Store Locator",link:""},
-    ],
-    footerlinks3:[
-        {id:1,title:"Enquire Form",link:""},
-        {id:2,title:"Cancellation & Returns",link:""},
-        {id:3,title:"Delivery Information",link:""},
-        {id:4,title:"Store Policies",link:""},
-        {id:5,title:"CSR Policies",link:""},
     ],
     paymentCards:[
         {id:1,name:"Master Card",img:masterCardImg},
@@ -70,6 +62,5 @@ export const selectContactNo = (state) => state.footer.contactNo;
 export const selectStoreSpecials = (state) => state.footer.storeSpecials;
 export const selectfooterlinks1 = (state) => state.footer.footerlinks1; 
 export const selectfooterlinks2 = (state) => state.footer.footerlinks2; 
-export const selectfooterlinks3 = (state) => state.footer.footerlinks3;
 export const selectPaymentCards = (state) => state.footer.paymentCards;
 export const selectSocialMedia = (state) => state.footer.socialMedia
