@@ -43,6 +43,7 @@ const Footer = ()=>{
                         </div>
                     </div>
                 </div>
+                <hr className="mt-5"></hr>
                 <div className="px-2 md:px-5 py-2 md:py-5 shadow-sm shadow-black/30 mb-10">
                     <div className="flex flex-col md:flex-row flex-wrap justify-between items-start md:items-center">
                         <div className="w-full lg:w-1/2 flex flex-wrap gap-5">
@@ -76,7 +77,7 @@ const Footer = ()=>{
                             }
                         </div>
                         <div className="w-fit text-sm font-semibold font-sans text-center">
-                            <p>&copy; {new Date().getFullYear()} Saravana Jewellery Private Limited. All rights reserved.</p>
+                            <p>&copy; {new Date().getFullYear()} Saravana Jewellery. All rights reserved.</p>
                         </div>
                         <div className="w-fit flex gap-3 items-center">
                             {

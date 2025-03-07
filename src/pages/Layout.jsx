@@ -8,6 +8,7 @@ const Layout = ()=>{
         <main>
             <Header/>
             <Outlet/>
+            <hr className="my-10"></hr>
             <Footer/>
         </main>
     )

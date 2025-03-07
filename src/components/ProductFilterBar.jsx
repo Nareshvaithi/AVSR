@@ -28,7 +28,14 @@ const ProductFilterBar = () => {
                     <div key={_id}>
                         <div
                             className="flex items-center justify-between gap-5 cursor-pointer p-2 text-gray-900 pl-5 uppercase"
-                            onClick={() => dispatch(setSelectedCategory(_id))}
+                            onClick={() => {
+                                dispatch(setSelectedCategory(_id))
+                                window.scrollTo({
+                                    top: 400, // Vertical position
+                                    left: 0,  // Horizontal position
+                                    behavior: 'smooth' // Smooth scroll
+                                  });
+                            }}
                         >
                             <h2 className="text-sm font-semibold font-mainFont1">{category_name}</h2>
                             <IoIosArrowDown
@@ -43,7 +50,15 @@ const ProductFilterBar = () => {
                                     <div key={collectionId}>
                                         <div
                                             className="flex items-center gap-2 cursor-pointer py-1"
-                                            onClick={() => dispatch(setSelectedVarity(collectionId))}
+                                            onClick={() => {
+                                                dispatch(setSelectedVarity(collectionId))
+                                                window.scrollTo({
+                                                    top: 500, // Vertical position
+                                                    left: 0,  // Horizontal position
+                                                    behavior: 'smooth' // Smooth scroll
+                                                  });
+                                                  
+                                            }}
                                         >
                                             <h3 className="font-[500] text-gray-800 font-mainFont1 text-[18px]">
                                                 {varity_name}
@@ -59,9 +74,9 @@ const ProductFilterBar = () => {
                                                         className="flex items-center gap-2 py-1 cursor-pointer"
                                                         onClick={() => dispatch(setSelectedDivision(divisionId))}
                                                     >
-                                                        <h4 className="font-[500] text-gray-800 font-mainFont1 text-[18px]">
-                                                            {division_name}
-                                                        </h4>
+                                                        {/* <h4 className="font-[500] text-gray-800 font-mainFont1 text-[18px]">
+                                                            {varity_name == "Necklace" ? division_name : ""}
+                                                        </h4> */}
                                                     </li>
                                                 ))}
                                             </ul>

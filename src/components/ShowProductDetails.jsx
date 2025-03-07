@@ -87,8 +87,11 @@ const ShowProductDetails = () => {
                                         ) : (
                                             <img src={item} alt="" className="w-full h-full object-cover" />
                                         )}
+                                    
                                     </div>
+                                    
                                 ))}
+                               
                             </div>
                         </div>
                         {/* Product Details */}
@@ -153,6 +156,7 @@ const ShowProductDetails = () => {
                             </div>
                         </div>
                     </div>
+                 
                 </div>
             </div>
         </div>

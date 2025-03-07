@@ -63,16 +63,20 @@ const ShowProducts = () => {
 
                 return (
                     <div key={collectionId}>
-                        <h2 className="font-mainFont1 text-2xl font-bold text-themeRed text-center">
+                         <hr className={`${varity_name=="Necklace"||varity_name=="Gifts"||varity_name=="Gold coins" ? "hidden" : ""} mt-10  h-3`}></hr>
+                        <div className="flex justify-center ">
+                       
+                        <h2 className=" border font-mainFont1 text-2xl font-bold bg-[#641a1b] text-center text-white px-6 my-10 py-1">
                             {varity_name}
                         </h2>
+                        </div>
                         {division.map(({ division_name, division_details, _id: divisionId }) => {
                             if (selectedDivision && selectedDivision !== divisionId) return null;
 
                             return (
                                 <div key={divisionId}>
                                     <h1 className="font-mainFont1 text-xl py-2 font-[600] text-gray-800">
-                                        {""}
+                                      
                                     </h1>
                                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
                                         {division_details.map(({ _id, images, product_name, product_code, purity, weight, offer, discount, mrp, createdAt }) => {
@@ -134,18 +138,6 @@ const ShowProducts = () => {
                     </div>
                 );
             })}
-                                                                {/* <ReactPlayer
-                                                                    className="w-full h-full object-contain"
-                                                                    url="http://api-avsr.konceptsdandd.com/ASSETS/PRODUCT_IMAGES/image_1741327316505.mp4"
-                                                                    playing={hoveredProductId === _id}
-                                                                    loop={true}
-                                                                    muted={true}
-                                                                    controls={false}
-                                                                    width="100%"
-                                                                    height="100%"
-                                                                    style={{ position: 'absolute', top: 0, left: 0,width:"500px" }}
-                                                                    
-                                                                /> */}
 
         </div>
     );
