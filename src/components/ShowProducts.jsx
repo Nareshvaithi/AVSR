@@ -72,7 +72,7 @@ const ShowProducts = () => {
                             return (
                                 <div key={divisionId}>
                                     <h1 className="font-mainFont1 text-xl py-2 font-[600] text-gray-800">
-                                        {division_name}
+                                        {""}
                                     </h1>
                                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
                                         {division_details.map(({ _id, images, product_name, product_code, purity, weight, offer, discount, mrp, createdAt }) => {
@@ -95,15 +95,13 @@ const ShowProducts = () => {
                                                             alt={product_name}
                                                             style={{ opacity: hoveredProductId === _id ? 0 : 1 }}
                                                         />
-                                                                                                            
-                                                    </div>
-
-                                                    {videoUrl && (
+                                                                                                                                                                {videoUrl && (
                                                             <div
-                                                                className=" obsolute transition-opacity duration-500 w-full"
+                                                                className=" obsolute inset-0 transition-opacity duration-500 w-full"
                                                                 style={{ opacity: hoveredProductId === _id ? 1 : 0 }}
                                                             >
                                                                 <ReactPlayer
+                                                                    className="w-full h-full object-cover"
                                                                     url={videoUrl}
                                                                     playing={hoveredProductId === _id}
                                                                     loop={true}
@@ -111,10 +109,14 @@ const ShowProducts = () => {
                                                                     controls={false}
                                                                     width="100%"
                                                                     height="100%"
-                                                                    style={{ position: 'absolute', top: 0, left: 0,width:"1200px" }}
+                                                                    style={{ position: 'absolute', top: 0, left: 0,width:"500px" }}
+                                                                    
                                                                 />
                                                             </div>
                                                         )}
+
+
+                                                    </div>
 
 
                                                     <h3 className="text-center font-mainFont1 text-lg py-2 font-[500]">
@@ -122,6 +124,7 @@ const ShowProducts = () => {
                                                     </h3>
                                                     </div>
                                                 </div>
+                                                
                                             );
                                         })}
                                     </div>
@@ -131,6 +134,19 @@ const ShowProducts = () => {
                     </div>
                 );
             })}
+                                                                {/* <ReactPlayer
+                                                                    className="w-full h-full object-contain"
+                                                                    url="http://api-avsr.konceptsdandd.com/ASSETS/PRODUCT_IMAGES/image_1741327316505.mp4"
+                                                                    playing={hoveredProductId === _id}
+                                                                    loop={true}
+                                                                    muted={true}
+                                                                    controls={false}
+                                                                    width="100%"
+                                                                    height="100%"
+                                                                    style={{ position: 'absolute', top: 0, left: 0,width:"500px" }}
+                                                                    
+                                                                /> */}
+
         </div>
     );
 };

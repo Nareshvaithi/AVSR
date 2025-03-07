@@ -4,6 +4,7 @@ import LatestCollections from "../components/LatestCollections";
 import StoreImgs from "../components/ShopByCategory";
 
 const Home = ()=>{
+
     return(
         <section>
             <FrontBanner/>

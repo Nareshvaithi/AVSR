@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { selectContactNo, selectfooterlinks1, selectfooterlinks2, selectfooterlinks3, selectFooterStoreImg, selectFooterSubTitle, selectFooterTitle, selectPaymentCards, selectSocialMedia, selectStoreSpecials } from "../store/footerSlice";
+import { selectContactNo, selectfooterlinks1, selectfooterlinks2, selectFooterStoreImg, selectFooterSubTitle, selectFooterTitle, selectPaymentCards, selectSocialMedia, selectStoreSpecials } from "../store/footerSlice";
 import { NavLink } from "react-router-dom";
 import SubscribeInput from "./SubscribeInput";
 
@@ -11,7 +11,6 @@ const Footer = ()=>{
     const storeSpecials = useSelector(selectStoreSpecials);
     const footerlinks1 = useSelector(selectfooterlinks1);
     const footerlinks2 = useSelector(selectfooterlinks2);
-    const footerlinks3 = useSelector(selectfooterlinks3);
     const paymentCards = useSelector(selectPaymentCards);
     const socialMedia = useSelector(selectSocialMedia);
     return(
@@ -46,7 +45,7 @@ const Footer = ()=>{
                 </div>
                 <div className="px-2 md:px-5 py-2 md:py-5 shadow-sm shadow-black/30 mb-10">
                     <div className="flex flex-col md:flex-row flex-wrap justify-between items-start md:items-center">
-                        <div className="w-full lg:w-1/2 flex flex-wrap justify-between gap-5">
+                        <div className="w-full lg:w-1/2 flex flex-wrap gap-5">
                             <div className="">
                                 {
                                     footerlinks1.map(({id,title,link})=>{
@@ -57,13 +56,6 @@ const Footer = ()=>{
                             <div className="">
                                 {
                                     footerlinks2.map(({id,title,link})=>{
-                                        return <NavLink className={"hover:text-themeRed block py-2 font-sans text-sm font-semibold"} key={id}>{title}</NavLink>
-                                    })
-                                }
-                            </div>
-                            <div className="">
-                                {
-                                    footerlinks3.map(({id,title,link})=>{
                                         return <NavLink className={"hover:text-themeRed block py-2 font-sans text-sm font-semibold"} key={id}>{title}</NavLink>
                                     })
                                 }
