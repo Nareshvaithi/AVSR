@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
     fetchProducts,
@@ -11,6 +11,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import BreadCrumb from "./BreadCrumb";
 import SortBy from "./SortBy";
+import ReactPlayer from 'react-player';
 
 const ShowProducts = () => {
     const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const ShowProducts = () => {
     const selectedVarity = useSelector(selectSelectedVarity);
     const selectedDivision = useSelector(selectSelectedDivision);
     const navigate = useNavigate();
+    const [hoveredProductId, setHoveredProductId] = useState(null);
 
     // Fetch products on mount
     useEffect(() => {
@@ -42,13 +44,19 @@ const ShowProducts = () => {
     }
 
     const { collections } = categoryData;
-    const findmetal = productsList.find((category)=>category._id === selectedCategory);
+    const findmetal = productsList.find((category) => category._id === selectedCategory);
     const metal = findmetal.category_name;
+
+    // Function to check if a file is a video
+    const isVideo = (url) => {
+        return url.endsWith('.mp4');
+    };
+
     return (
         <div className="w-full pl-0 lg:pl-5">
             <div className="flex items-center justify-between">
-                <BreadCrumb/>
-                <SortBy/>
+                <BreadCrumb />
+                <SortBy />
             </div>
             {collections.map(({ varity_name, division, _id: collectionId }) => {
                 if (selectedVarity && selectedVarity !== collectionId) return null;
@@ -67,31 +75,55 @@ const ShowProducts = () => {
                                         {division_name}
                                     </h1>
                                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-                                        {division_details.map(({ _id, images, product_name,product_code, purity, weight,offer,discount,mrp,createdAt }) => (
-                                            <div
-                                                key={_id}
-                                                onClick={() => {navigate(`/products/${product_name}`,{state:{division_name,product_code,product_name,images,purity,weight,offer, discount,mrp,metal}});window.scrollTo(0,300)}}
-                                                className="w-full h-full cursor-pointer"
-                                            >
-                                                <div className="w-full border border-themeRed/30 relative group overflow-hidden">
-                                                    <img
-                                                        src={images[1]}
-                                                        className="w-full h-full object-cover"
-                                                        alt=""
-                                                    />
-                                                    <div className="w-full h-full inset-0 absolute opacity-0 group-hover:opacity-100 transition-opacity duration-1000">
-                                                        <vide>
-                                                        <source src={images[1]||images[0]} className="w-full h-full object-cover" type="video/mp4" />
-                                                        </vide>
-                                                         
-                                                        
+                                        {division_details.map(({ _id, images, product_name, product_code, purity, weight, offer, discount, mrp, createdAt }) => {
+                                            const imageUrl = images.find((url) => url.endsWith('.jpg'));
+                                            const videoUrl = images.find((url) => url.endsWith('.mp4'));
+
+                                            return (
+                                                <div
+                                                    key={_id}
+                                                    onClick={() => { navigate(`/products/${product_name}`, { state: { division_name, product_code, product_name, images, purity, weight, offer, discount, mrp, metal } }); window.scrollTo(0, 300) }}
+                                                    className="w-full h-full cursor-pointer"
+                                                    onMouseEnter={() => setHoveredProductId(_id)}
+                                                    onMouseLeave={() => setHoveredProductId(null)}
+                                                >
+                                                    <div className="relative">
+                                                    <div className="w-full border border-themeRed/30 relative group overflow-hidden" style={{ aspectRatio: '1/1' }}>
+                                                        <img
+                                                            src={imageUrl}
+                                                            className="w-full h-full object-cover transition-opacity duration-500"
+                                                            alt={product_name}
+                                                            style={{ opacity: hoveredProductId === _id ? 0 : 1 }}
+                                                        />
+                                                                                                            
+                                                    </div>
+
+                                                    {videoUrl && (
+                                                            <div
+                                                                className=" obsolute transition-opacity duration-500 w-full"
+                                                                style={{ opacity: hoveredProductId === _id ? 1 : 0 }}
+                                                            >
+                                                                <ReactPlayer
+                                                                    url={videoUrl}
+                                                                    playing={hoveredProductId === _id}
+                                                                    loop={true}
+                                                                    muted={true}
+                                                                    controls={false}
+                                                                    width="100%"
+                                                                    height="100%"
+                                                                    style={{ position: 'absolute', top: 0, left: 0,width:"1200px" }}
+                                                                />
+                                                            </div>
+                                                        )}
+
+
+                                                    <h3 className="text-center font-mainFont1 text-lg py-2 font-[500]">
+                                                        {product_name}
+                                                    </h3>
                                                     </div>
                                                 </div>
-                                                <h3 className="text-center font-mainFont1 text-lg py-2 font-[500]">
-                                                    {product_name}
-                                                </h3>
-                                            </div>
-                                        ))}
+                                            );
+                                        })}
                                     </div>
                                 </div>
                             );
